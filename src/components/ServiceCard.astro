@@ -1,0 +1,34 @@
+---
+// src/components/ServiceCard.astro
+export interface Props {
+  iconClass: string; // Platzhalter - hier könnte man auch SVG-Code etc. übergeben
+  title: string;
+  text: string;
+}
+
+const { iconClass, title, text } = Astro.props;
+---
+<div class="service-card">
+  <div class={`card-icon ${iconClass}`}>
+    {/* Hier müsste die Logik für echte Icons hin, z.B. <i class={iconClass}></i> für Font Awesome */}
+    <span class="placeholder-icon">ICON</span> {/* Einfacher Text-Platzhalter */}
+  </div>
+  <h3 class="card-title">{title}</h3>
+  <p class="card-text">{text}</p>
+</div>
+
+<style>
+  /* Minimales Styling für den Icon-Platzhalter, kann entfernt werden, wenn echte Icons da sind */
+  .placeholder-icon {
+    display: inline-block;
+    font-size: 0.8em; /* Kleinere Schrift für den Platzhaltertext */
+    font-weight: bold;
+    color: var(--secondary-color); /* Heller Blauton */
+    background-color: var(--primary-color); /* Haupt-Blauton */
+    border-radius: 50%; /* Kreis */
+    width: 2.5em; /* Feste Größe anpassen an card-icon font-size */
+    height: 2.5em;
+    line-height: 2.5em; /* Vertikal zentrieren */
+    text-align: center;
+  }
+</style>

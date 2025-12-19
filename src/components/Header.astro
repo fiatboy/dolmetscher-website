@@ -1,0 +1,39 @@
+---
+// src/components/Header.astro - Aktualisiert mit Bild-Logo und Tagline
+const menuItems = [
+  { name: "Home", url: "/" },
+  { name: "Über mich", url: "/ueber-mich" }, // Pfade ggf. anpassen
+  { name: "Leistungen", url: "/leistungen" },
+  { name: "Kontakt", url: "/kontakt" },
+];
+---
+<header class="site-header">
+  <div class="container">
+    {/* Logo-Link */}
+    <a href="/" class="logo-link">
+      {/* Bild-Logo statt Text 'Z'. Pfad anpassen, falls nötig! */}
+      <img
+        src="/profil1.png"
+        alt="Zehra Yacine Logo"
+        class="logo-image"
+        loading="lazy"
+        decoding="async"
+      />
+      {/* Optional: Höhe/Breite für besseres Laden hinzufügen, falls bekannt */}
+      {/* width="150" height="40" */}
+    </a>
+
+    {/* NEU/GEÄNDERT: Tagline hier eingefügt */}
+    <span class="tagline">Professionelle Sprachmittlung - Zehra Yacine</span>
+    {/* Ändern Sie den Text hier, falls gewünscht (z.B. "Sprachmittlung Türkisch-Deutsch") */}
+
+    {/* Navigation */}
+    <nav class="main-navigation">
+      <ul>
+        {menuItems.map(item => (
+          <li><a href={item.url}>{item.name}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,27 @@
+---
+// src/pages/leistungen.astro (Basisversion)
+import BaseLayout from '../layouts/BaseLayout.astro'; // Importiere das Layout
+
+// Setze den Titel für diese spezifische Seite
+const pageTitle = "Leistungen | [Dein Name] - Sprachmittlung";
+---
+{/* Nutze das Layout und übergib den Titel */}
+<BaseLayout title={pageTitle}>
+  {/* Platzhalter-Inhalt für diese Seite */}
+  <h2 class="text-2xl font-semibold mb-4">Meine Leistungen</h2>
+  <div class="bg-white p-6 rounded-lg shadow border border-gray-200 space-y-3">
+    <p>
+      Ich biete mündliche Sprachmittlung und Kommunikationsunterstützung für Türkisch-Deutsch an, insbesondere für:
+    </p>
+    <ul class="list-disc list-inside ml-4 space-y-1"> {/* Einfache Liste */}
+      <li>Begleitung zu Arztbesuchen</li>
+      <li>Unterstützung für NGOs und soziale Träger</li>
+      <li>Hilfe bei informellen Behördengängen</li>
+      <li>Alltagskommunikation für Migranten und Flüchtlinge</li>
+      <li>[Weitere Leistungen hier einfügen...]</li>
+    </ul>
+     <p class="text-sm italic text-gray-600 mt-4">
+      Wichtiger Hinweis: Keine juristisch relevanten Dolmetschleistungen (Gericht, Notar etc.) und keine schriftlichen Übersetzungen.
+    </p>
+  </div>
+</BaseLayout>

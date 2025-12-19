@@ -1,11 +1,33 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+// src/pages/index.astro - Stand nach Einbau des Footers
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// 1. Layout importieren (Pfad/Name ggf. anpassen)
+import Layout from '../layouts/BaseLayout.astro';
+
+// 2. Seiten-spezifische Komponenten importieren
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import ServicesSection from '../components/ServicesSection.astro'; // Enthält die ServiceCards
+// import AboutSection from '../components/AboutSection.astro';     // Nächster Schritt!
+import Footer from '../components/Footer.astro';         // Footer wurde hinzugefügt
+
 ---
-
+{/* 4. Layout verwenden und Titel übergeben */}
 <Layout>
-	<Welcome />
+
+  {/* 5. Header einfügen */}
+  <Header />
+
+  {/* 6. Hero-Bereich einfügen */}
+  <Hero />
+
+  {/* 7. Leistungs-Kacheln einfügen */}
+  <ServicesSection />
+
+  {/* 8. "Über Uns"-Abschnitt (NOCH NICHT EINGEFÜGT) */}
+  {/* <AboutSection /> */}
+
+  {/* 9. Footer am Ende der Seite einfügen */}
+  <Footer />
+
 </Layout>

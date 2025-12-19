@@ -1,0 +1,25 @@
+---
+// src/pages/kontakt.astro (Basisversion)
+import BaseLayout from '../layouts/BaseLayout.astro'; // Importiere das Layout
+
+// Setze den Titel für diese spezifische Seite
+const pageTitle = "Kontakt | [Dein Name] - Sprachmittlung";
+---
+{/* Nutze das Layout und übergib den Titel */}
+<BaseLayout title={pageTitle}>
+  {/* Platzhalter-Inhalt für diese Seite */}
+  <h2 class="text-2xl font-semibold mb-4">Kontakt aufnehmen</h2>
+  <div class="bg-white p-6 rounded-lg shadow border border-gray-200 space-y-3">
+    <p>
+      Ich freue mich darauf, von Ihnen zu hören! Sie erreichen mich am besten per E-Mail oder Telefon:
+    </p>
+     <ul class="list-none ml-4 space-y-1"> {/* Liste ohne Aufzählungszeichen */}
+      <li><strong>E-Mail:</strong> <a href="mailto:[Deine E-Mail-Adresse]" class="text-blue-600 hover:underline">[Deine E-Mail-Adresse]</a></li>
+      <li><strong>Telefon:</strong> [Deine Telefonnummer]</li>
+      {/* Ggf. Erreichbarkeitszeiten hinzufügen */}
+    </ul>
+    <p class="mt-4">
+      Ein Kontaktformular ist derzeit nicht vorhanden.
+    </p>
+  </div>
+</BaseLayout>

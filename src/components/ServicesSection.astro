@@ -1,0 +1,38 @@
+---
+// src/components/ServicesSection.astro
+import ServiceCard from './ServiceCard.astro';
+
+const services = [
+  {
+    iconClass: "icon-expertise", // Platzhalter-Klasse
+    title: "Fachkompetenz",
+    text: "Spezialisierte Übersetzer für Technik, Recht, Medizin & Marketing."
+  },
+  {
+    iconClass: "icon-languages", // Platzhalter-Klasse
+    title: "Sprachenvielfalt",
+    text: "Präzise Übersetzungen in über 50 Sprachen weltweit." // Beispiel anpassen!
+  },
+  {
+    iconClass: "icon-quality", // Platzhalter-Klasse
+    title: "Qualität & Muttersprachler",
+    text: "Höchste Qualität durch Muttersprachler und ISO-zertifizierte Prozesse." // Beispiel anpassen!
+  }
+];
+---
+<section class="services-section">
+  <div class="container">
+    {/* Optional: Eine Überschrift für den Abschnitt */}
+    {/* <h2 style="text-align: center; margin-bottom: 40px;">Unsere Leistungen im Überblick</h2> */}
+
+    <div class="services-grid">
+      {services.map(service => (
+        <ServiceCard
+          iconClass={service.iconClass}
+          title={service.title}
+          text={service.text}
+        />
+      ))}
+    </div>
+  </div>
+</section>

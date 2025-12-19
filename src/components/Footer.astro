@@ -1,0 +1,16 @@
+---
+// src/components/Footer.astro
+const currentYear = new Date().getFullYear();
+const companyName = "Zehra Yacine";
+const serviceDescription = "Sprachmittlung Türkisch-Deutsch"; // Oder deine Hauptbeschreibung
+---
+<footer class="site-footer">
+  <div class="container">
+    <p>
+      &copy; {currentYear} {companyName} - {serviceDescription} |
+      <a href="/impressum">Impressum</a> |
+      <a href="/datenschutz">Datenschutz</a>
+      {/* Passe die Links ggf. an, falls die Seiten andere Pfade haben */}
+    </p>
+  </div>
+</footer>

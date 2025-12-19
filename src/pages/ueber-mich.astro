@@ -1,0 +1,23 @@
+---
+// src/pages/ueber-mich.astro (Basisversion)
+import BaseLayout from '../layouts/BaseLayout.astro'; // Importiere das Layout
+
+// Setze den Titel für diese spezifische Seite
+const pageTitle = "Über Mich | [Dein Name] - Sprachmittlung"; 
+---
+{/* Nutze das Layout und übergib den Titel */}
+<BaseLayout title={pageTitle}>
+  {/* Platzhalter-Inhalt für diese Seite */}
+  <h2 class="text-2xl font-semibold mb-4">Über Mich</h2> {/* Beispiel-Unterüberschrift */}
+  <div class="bg-white p-6 rounded-lg shadow border border-gray-200 space-y-3"> {/* Optional: Weißer Kasten für Inhalt */}
+    <p>
+      Hier erfahren Sie bald mehr über mich, meine Motivation, meine Erfahrung (insbesondere mit minderjährigen Flüchtlingen und älteren Menschen bei Arztbesuchen) und meine Arbeitsweise.
+    </p>
+    <p>
+      [Platzhalter für weiteren Text...]
+    </p>
+    <p class="text-sm italic text-gray-600">
+      Hinweis: Ich verfüge aktuell über praktische Erfahrung, aber keine formelle Vereidigung. (Dieser Hinweis sollte hier oder bei den Leistungen klar platziert werden).
+    </p>
+  </div>
+</BaseLayout>
