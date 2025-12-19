@@ -1,37 +1,29 @@
 ---
-// src/components/Header.astro - Aktualisiert mit Bild-Logo und Tagline
-const menuItems = [
-  { name: "Home", url: "/" },
-  { name: "Über mich", url: "/ueber-mich" }, // Pfade ggf. anpassen
-  { name: "Leistungen", url: "/leistungen" },
-  { name: "Kontakt", url: "/kontakt" },
+const nav = [
+  { href: "/", label: "Start" },
+  { href: "/leistungen", label: "Leistungen" },
+  { href: "/ueber-mich", label: "Über mich" },
+  { href: "/kontakt", label: "Kontakt" },
 ];
 ---
+
 <header class="site-header">
   <div class="container">
-    {/* Logo-Link */}
-    <a href="/" class="logo-link">
-      {/* Bild-Logo statt Text 'Z'. Pfad anpassen, falls nötig! */}
-      <img
-        src="/Gemini_Generated_Image.png"
-        alt="Zehra Yacine Logo"
-        class="logo-image"
-        loading="lazy"
-        decoding="async"
-      />
-      {/* Optional: Höhe/Breite für besseres Laden hinzufügen, falls bekannt */}
-      {/* width="150" height="40" */}
-    </a>
+    <div class="brand">
+      <a class="logo-link" href="/" aria-label="Startseite">
+        <img class="logo-image" src="/logo.png" alt="Zehra Yacine – Sprachmittlung" />
+      </a>
 
-    {/* NEU/GEÄNDERT: Tagline hier eingefügt */}
-    <span class="tagline">Professionelle Sprachmittlung - Zehra Yacine</span>
-    {/* Ändern Sie den Text hier, falls gewünscht (z.B. "Sprachmittlung Türkisch-Deutsch") */}
+      <!-- Text direkt neben dem Logo -->
+      <span class="tagline">Zehra Yacine – Sprachmittlung Deutsch ↔ Türkisch</span>
+    </div>
 
-    {/* Navigation */}
-    <nav class="main-navigation">
+    <nav class="main-navigation" aria-label="Hauptnavigation">
       <ul>
-        {menuItems.map(item => (
-          <li><a href={item.url}>{item.name}</a></li>
+        {nav.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
         ))}
       </ul>
     </nav>

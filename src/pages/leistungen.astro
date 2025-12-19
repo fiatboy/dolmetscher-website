@@ -1,27 +1,69 @@
 ---
-// src/pages/leistungen.astro (Basisversion)
-import BaseLayout from '../layouts/BaseLayout.astro'; // Importiere das Layout
+import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Setze den Titel für diese spezifische Seite
-const pageTitle = "Leistungen | [Dein Name] - Sprachmittlung";
+const pageTitle = "Leistungen – Sprachmittlung Deutsch Türkisch Augsburg | Zehra Yacine";
+const pageDescription =
+  "Leistungen: Sprachmittlung Deutsch ↔ Türkisch in Augsburg – Begleit- und Gesprächsdolmetschen für Behörden, Arztbesuche, Beratungen und soziale Einrichtungen.";
 ---
-{/* Nutze das Layout und übergib den Titel */}
-<BaseLayout title={pageTitle}>
-  {/* Platzhalter-Inhalt für diese Seite */}
-  <h2 class="text-2xl font-semibold mb-4">Meine Leistungen</h2>
-  <div class="bg-white p-6 rounded-lg shadow border border-gray-200 space-y-3">
-    <p>
-      Ich biete mündliche Sprachmittlung und Kommunikationsunterstützung für Türkisch-Deutsch an, insbesondere für:
-    </p>
-    <ul class="list-disc list-inside ml-4 space-y-1"> {/* Einfache Liste */}
-      <li>Begleitung zu Arztbesuchen</li>
-      <li>Unterstützung für NGOs und soziale Träger</li>
-      <li>Hilfe bei informellen Behördengängen</li>
-      <li>Alltagskommunikation für Migranten und Flüchtlinge</li>
-      <li>[Weitere Leistungen hier einfügen...]</li>
-    </ul>
-     <p class="text-sm italic text-gray-600 mt-4">
-      Wichtiger Hinweis: Keine juristisch relevanten Dolmetschleistungen (Gericht, Notar etc.) und keine schriftlichen Übersetzungen.
-    </p>
-  </div>
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <section class="page-hero">
+    <div class="container">
+      <h1>Leistungen</h1>
+      <p>
+        Sprachmittlung <strong>Deutsch ↔ Türkisch</strong> – verständlich, diskret und kultursensibel.
+        Für Augsburg und Umgebung.
+      </p>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="container">
+      <div class="content-grid">
+        <div class="content-card">
+          <h2>Deutsch ↔ Türkisch Sprachmittlung</h2>
+          <p>
+            Unterstützung in Gesprächen, in denen es auf klare Kommunikation ankommt – damit Inhalte korrekt ankommen und
+            Missverständnisse vermieden werden.
+          </p>
+          <ul class="checklist">
+            <li>Alltags- und Beratungsgespräche</li>
+            <li>Telefonate / kurze Abstimmungen</li>
+            <li>Begleitung zu Terminen</li>
+          </ul>
+        </div>
+
+        <div class="content-card">
+          <h2>Begleit- & Gesprächsdolmetschen</h2>
+          <p>
+            Besonders häufig begleite ich Gespräche in Bereichen, die für viele Menschen stressig oder emotional sind.
+          </p>
+          <ul class="checklist">
+            <li>Arztgespräche, Kliniktermine, Therapie/ Beratung</li>
+            <li>Behördentermine (nicht vereidigungspflichtig)</li>
+            <li>Soziale Einrichtungen, Träger, NGOs</li>
+          </ul>
+        </div>
+
+        <div class="content-card content-card--full">
+          <h2>Ablauf</h2>
+          <ol class="steps">
+            <li><strong>Kurze Anfrage:</strong> Termin, Ort, Thema, Dauer (grob) nennen.</li>
+            <li><strong>Rückmeldung:</strong> Ich sage dir schnell, ob es passt und was ich brauche.</li>
+            <li><strong>Termin:</strong> Vor Ort / je nach Situation auch telefonisch (wenn sinnvoll).</li>
+          </ol>
+
+          <a class="cta-inline" href="/kontakt">Unverbindlich anfragen</a>
+        </div>
+
+        <div class="content-card content-card--full">
+          <h2>Wichtiger Hinweis</h2>
+          <p style="color:#555;">
+            Ich biete keine juristisch relevanten Dolmetschleistungen (z. B. Gericht/Notar) und keine schriftlichen Übersetzungen.
+            Wenn du unsicher bist, ob dein Termin darunter fällt: Schreib mir – ich kläre das mit dir.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

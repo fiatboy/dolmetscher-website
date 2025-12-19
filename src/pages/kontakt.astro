@@ -1,25 +1,82 @@
 ---
-// src/pages/kontakt.astro (Basisversion)
-import BaseLayout from '../layouts/BaseLayout.astro'; // Importiere das Layout
+import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Setze den Titel für diese spezifische Seite
-const pageTitle = "Kontakt | [Dein Name] - Sprachmittlung";
+const title = "Kontakt – Zehra Yacine | Sprachmittlung Deutsch ↔ Türkisch";
+const description =
+  "Kontakt für Sprachmittlung Deutsch-Türkisch: Termin anfragen für Arzttermine, Beratung, Alltag. Diskret, empathisch, zuverlässig. Jetzt Nachricht senden.";
 ---
-{/* Nutze das Layout und übergib den Titel */}
-<BaseLayout title={pageTitle}>
-  {/* Platzhalter-Inhalt für diese Seite */}
-  <h2 class="text-2xl font-semibold mb-4">Kontakt aufnehmen</h2>
-  <div class="bg-white p-6 rounded-lg shadow border border-gray-200 space-y-3">
-    <p>
-      Ich freue mich darauf, von Ihnen zu hören! Sie erreichen mich am besten per E-Mail oder Telefon:
-    </p>
-     <ul class="list-none ml-4 space-y-1"> {/* Liste ohne Aufzählungszeichen */}
-      <li><strong>E-Mail:</strong> <a href="mailto:[Deine E-Mail-Adresse]" class="text-blue-600 hover:underline">[Deine E-Mail-Adresse]</a></li>
-      <li><strong>Telefon:</strong> [Deine Telefonnummer]</li>
-      {/* Ggf. Erreichbarkeitszeiten hinzufügen */}
-    </ul>
-    <p class="mt-4">
-      Ein Kontaktformular ist derzeit nicht vorhanden.
-    </p>
-  </div>
+
+<BaseLayout title={title}>
+  <head>
+    <meta name="description" content={description} />
+    <link rel="canonical" href="https://zehra-yacine.de/kontakt/" />
+  </head>
+
+  <section class="page-hero">
+    <div class="container">
+      <h1>Kontakt</h1>
+      <p>
+        Sie möchten einen Termin anfragen oder kurz klären, ob ich Sie begleiten kann?
+        Schreiben Sie mir – am besten mit Datum, Ort und Thema.
+      </p>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="container content-grid">
+      <div class="content-card">
+        <h3>So erreichen Sie mich</h3>
+        <p><strong>E-Mail:</strong> <a href="mailto:info@zehra-yacine.de">info@zehra-yacine.de</a></p>
+        <p><strong>Telefon/WhatsApp:</strong> <span>+49 157 53246812</span></p>
+        <p><strong>Region:</strong> Augsburg & Umgebung (oder nach Absprache)</p>
+
+        <p style="margin-top: 14px;">
+          <strong>Tipp:</strong> Wenn Sie schreiben, nennen Sie bitte:
+        </p>
+        <ul class="checklist">
+          <li>Datum & Uhrzeit</li>
+          <li>Ort / Einrichtung</li>
+          <li>Thema (z.B. Arztgespräch, Beratung, Schule)</li>
+          <li>Deutsch → Türkisch oder Türkisch → Deutsch</li>
+        </ul>
+      </div>
+
+      <div class="content-card">
+        <h3>Schnell-Anfrage</h3>
+        <p>
+          Öffnen Sie eine E-Mail mit Vorlage (Sie können den Text direkt übernehmen):
+        </p>
+
+        <a
+          class="cta-inline"
+          href={`mailto:info@zehra-yacine.de?subject=${encodeURIComponent("Anfrage Sprachmittlung Deutsch ↔ Türkisch")}&body=${encodeURIComponent(
+`Hallo Zehra,
+
+ich möchte gerne eine Sprachmittlung anfragen.
+
+Datum/Uhrzeit:
+Ort:
+Thema/Anlass:
+Sprache (DE↔TR):
+Weitere Hinweise:
+
+Viele Grüße
+`)}`}
+        >
+          Anfrage per E-Mail senden
+        </a>
+
+        <p style="margin-top: 16px; font-size: 0.95em; color:#555;">
+          Ich melde mich so schnell wie möglich zurück und bestätige Ihnen die Verfügbarkeit.
+        </p>
+      </div>
+
+      <div class="content-card content-card--full">
+        <p>
+          <strong>Hinweis:</strong> Keine juristisch relevanten Dolmetschleistungen (Gericht, Notar, amtliche Verfahren)
+          und keine schriftlichen Übersetzungen.
+        </p>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

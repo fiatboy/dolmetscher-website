@@ -2,252 +2,347 @@
 
 /* ------------------------- */
 /* Variablen (Zur einfachen Anpassung) */
-/* -- NEUE FARBPALETTE BASIEREND AUF LOGO -- */
 /* ------------------------- */
 :root {
-    /* Farb-Schätzungen aus logo.jpg */
-    --primary-color: #e6a849; /* Gold/Gelb aus Logo-Akzenten */
-    --secondary-color: #f5f5f5; /* Sehr helles Grau (für Kontraste, heller als Logo-BG) */
-    --accent-color: #d17c41; /* Orange aus Logo-Akzenten (für Hover etc.) */
-    --text-color: #20232a; /* Dunkles Blau/Anthrazit aus Logo 'Z' */
-    --light-text-color: #ffffff; /* Heller Text (Weiß) */
-    --background-light: #ffffff; /* Heller Seitenhintergrund (Weiß) */
-    --background-grey: #e1e1e1; /* Hellgrau aus Logo-Hintergrund (für Sektionen) */
-  
-    /* Schriften & Radien bleiben vorerst gleich */
-    --font-primary: 'Open Sans', sans-serif; /* Beispiel (muss geladen werden!) */
-    --border-radius: 4px;
-  }
-  /* -- ENDE NEUE FARBPALETTE -- */
-  
-  
-  /* ------------------------- */
-  /* Globale Stile */
-  /* ------------------------- */
-  body {
-    font-family: var(--font-primary);
-    color: var(--text-color); /* Nutzt jetzt dunkles Anthrazit */
-    line-height: 1.6;
-    margin: 0;
-    background-color: var(--background-light); /* Bleibt Weiß */
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    margin-top: 0;
-    font-weight: 600;
-    color: var(--text-color); /* Stellt sicher, dass Überschriften auch die neue Textfarbe nutzen */
-  }
-  
-  a {
-    color: var(--primary-color); /* Nutzt jetzt Gold/Gelb */
-    text-decoration: none;
-  }
-  
-  a:hover {
-    color: var(--accent-color); /* Nutzt jetzt Orange */
-    text-decoration: underline;
-  }
-  
-  /* Container für zentrierten Inhalt */
-  .container {
-    max-width: 1140px;
-    margin: 0 auto;
-    padding: 0 15px;
-  }
-  
-  /* ------------------------- */
-  /* Header */
-  /* ------------------------- */
-  .site-header {
-    background-color: var(--background-light); /* Bleibt Weiß */
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  }
-  
-  .site-header .container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo-link {
-     display: inline-block;
-     text-decoration: none;
-  }
-  
-  .logo-image {
-    max-height: 110px; /* Höhe ggf. anpassen */
-    width: auto;
-    display: block;
-  }
-  
-  .tagline {
-    margin-left: 15px;
-    font-size: 0.9em;
-    color: #6c757d; /* Könnte man auch an --text-color oder eine neue Variable anpassen */
-  }
-  
-  .main-navigation {
-    margin-left: auto; /* Schiebt die Navigation nach rechts */
-  }
-  
+  --primary-color: #e6a849;
+  --secondary-color: #f5f5f5;
+  --accent-color: #d17c41;
+  --text-color: #20232a;
+  --light-text-color: #ffffff;
+  --background-light: #ffffff;
+  --background-grey: #e1e1e1;
+
+  /* "Rundere" Standard-Schrift ohne externe Fonts */
+  --font-primary: ui-rounded, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --border-radius: 4px;
+}
+
+/* ------------------------- */
+/* Globale Stile */
+/* ------------------------- */
+body {
+  font-family: var(--font-primary);
+  color: var(--text-color);
+  line-height: 1.6;
+  margin: 0;
+  background-color: var(--background-light);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
+/* Container für zentrierten Inhalt */
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* ------------------------- */
+/* Header (NEU/ÜBERSCHRIEBEN) */
+/* ------------------------- */
+.site-header {
+  background-color: var(--background-light);
+  border-bottom: 1px solid #eee;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  /* kompakter als vorher */
+  padding: 10px 0;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.logo-image {
+  /* etwas kleiner -> Header dünner */
+  height: 64px;
+  width: auto;
+  display: block;
+}
+
+.brand-title {
+  display: inline-flex;
+  flex-direction: column;
+  line-height: 1.15;
+
+  /* sanfter / weniger "Menü-Look" */
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: 0.2px;
+  color: #3a3f46;
+}
+
+.brand-subtitle {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #6c757d;
+  margin-top: 2px;
+}
+
+.main-navigation {
+  margin-left: auto;
+}
+
+.main-navigation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 26px;
+}
+
+.main-navigation a {
+  text-decoration: none;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.main-navigation a:hover {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+/* Mobile: Logo + Text kleiner, Navigation kann umbrechen */
+@media (max-width: 768px) {
+  .logo-image { height: 54px; }
+  .brand-title { font-size: 1.05rem; }
+  .brand-subtitle { font-size: 0.9rem; }
+
   .main-navigation ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
   }
-  
-  .main-navigation li {
-    margin-left: 25px;
-  }
-  
-  .main-navigation a {
-    text-decoration: none;
-    font-weight: 600;
-    color: var(--text-color); /* Navigation nutzt jetzt dunkle Textfarbe */
-  }
-  .main-navigation a:hover {
-    color: var(--primary-color); /* Gold/Gelb beim Hover */
-    text-decoration: none;
-  }
-  
-  
-  /* ------------------------- */
-  /* Hero Bereich */
-  /* ------------------------- */
-  .hero {
-    /* WICHTIG: Nutzt jetzt die neue --primary-color (Gold/Gelb)! */
-    background-color: var(--primary-color);
-    /* Falls das nicht gewünscht ist, hier z.B. das Grau oder einen Verlauf definieren: */
-    /* background-color: var(--background-grey); */
-    /* background: linear-gradient(135deg, var(--accent-color), var(--primary-color)); */
-  
-    color: var(--light-text-color); /* Weißer Text sollte auf Gold/Gelb noch lesbar sein */
-    padding: 80px 0;
-    text-align: center;
-  }
-  
-  .hero h1 {
-    font-size: 2.8em;
-    margin-bottom: 15px;
-    color: var(--light-text-color); /* Sicherstellen, dass H1 hell bleibt */
-  }
-  
-  .hero p {
-    font-size: 1.1em;
-    margin-bottom: 30px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .cta-button {
-    display: inline-block;
-    /* Hintergrund jetzt hell, Text in Primärfarbe oder dunkler Akzentfarbe? */
-    background-color: var(--light-text-color);
-    color: var(--accent-color); /* Orange Text auf weißem Button? Oder --primary-color? */
-    padding: 12px 25px;
-    border: none;
-    border-radius: var(--border-radius);
-    font-size: 1.1em;
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  .cta-button:hover {
-    background-color: var(--text-color); /* Dunkler Button-Hintergrund beim Hover? */
-    color: var(--light-text-color); /* Heller Text darauf */
-    text-decoration: none;
-  }
-  
-  /* ------------------------- */
-  /* Leistungs-Kacheln (Services Section) */
-  /* ------------------------- */
-  .services-section {
-    padding: 60px 0;
-    background-color: var(--background-grey); /* Nutzt jetzt Hellgrau aus Logo */
-  }
-  
+}
+
+/* ------------------------- */
+/* Hero Bereich */
+/* ------------------------- */
+.hero {
+  background-color: var(--primary-color);
+  color: var(--light-text-color);
+  padding: 80px 0;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 2.8em;
+  margin-bottom: 15px;
+  color: var(--light-text-color);
+}
+
+.hero p {
+  font-size: 1.1em;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-button {
+  display: inline-block;
+  background-color: var(--light-text-color);
+  color: var(--accent-color);
+  padding: 12px 25px;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1.1em;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: var(--text-color);
+  color: var(--light-text-color);
+  text-decoration: none;
+}
+
+/* ------------------------- */
+/* Leistungs-Kacheln (Services Section) */
+/* ------------------------- */
+.services-section {
+  padding: 60px 0;
+  background-color: var(--background-grey);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.service-card {
+  background-color: var(--background-light);
+  padding: 30px;
+  border-radius: var(--border-radius);
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-icon {
+  font-size: 2.5em;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.card-title {
+  font-size: 1.3em;
+  margin-bottom: 10px;
+  color: var(--text-color);
+}
+
+.card-text {
+  font-size: 0.95em;
+  color: #555;
+}
+
+@media (max-width: 992px) {
   .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  .service-card {
-    background-color: var(--background-light); /* Weiße Kacheln */
-    padding: 30px;
-    border-radius: var(--border-radius);
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr;
   }
-  
-  .service-card:hover {
-     transform: translateY(-5px);
+  .hero h1 {
+    font-size: 2.2em;
   }
-  
-  .card-icon {
-    font-size: 2.5em;
-    color: var(--primary-color); /* Icons jetzt Gold/Gelb */
-    margin-bottom: 20px;
+  .hero p {
+    font-size: 1em;
   }
-  
-  .card-title {
-    font-size: 1.3em;
-    margin-bottom: 10px;
-    color: var(--text-color); /* Dunkle Überschrift */
-  }
-  
-  .card-text {
-    font-size: 0.95em;
-    color: #555; /* Behält das etwas hellere Grau für den Text */
-  }
-  
-  /* Responsivität für Kacheln */
-  @media (max-width: 992px) {
-    .services-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .services-grid {
-      grid-template-columns: 1fr;
-    }
-     .hero h1 {
-       font-size: 2.2em;
-     }
-     .hero p {
-       font-size: 1em;
-     }
-  }
-  
-  /* ------------------------- */
-  /* Footer */
-  /* ------------------------- */
-  .site-footer {
-    background-color: var(--background-grey); /* Nutzt jetzt Hellgrau aus Logo */
-    color: #6c757d;
-    padding: 30px 0;
-    margin-top: 60px;
-    border-top: 1px solid #dee2e6;
-    font-size: 0.9em;
-    text-align: center;
-  }
-  
-  .site-footer p {
-    margin: 0;
-  }
-  
-  .site-footer a {
-    color: var(--text-color); /* Dunkle Links im Footer */
-    text-decoration: underline;
-  }
-  
-  .site-footer a:hover {
-    color: var(--primary-color); /* Gold/Gelb beim Hover */
-  }
+}
+
+/* ------------------------- */
+/* Footer */
+/* ------------------------- */
+.site-footer {
+  background-color: var(--background-grey);
+  color: #6c757d;
+  padding: 30px 0;
+  margin-top: 60px;
+  border-top: 1px solid #dee2e6;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer a {
+  color: var(--text-color);
+  text-decoration: underline;
+}
+
+.site-footer a:hover {
+  color: var(--primary-color);
+}
+
+/* (Deine Page-Styles bleiben wie gehabt) */
+.page-hero {
+  background: var(--background-grey);
+  padding: 50px 0;
+  text-align: center;
+}
+
+.page-hero h1 {
+  font-size: 2.2em;
+  margin-bottom: 10px;
+}
+
+.page-hero p {
+  max-width: 760px;
+  margin: 0 auto;
+  color: #444;
+}
+
+.page-section {
+  padding: 50px 0;
+  background: var(--background-light);
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.content-card {
+  background: var(--background-light);
+  border-radius: var(--border-radius);
+  padding: 28px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.content-card--full {
+  grid-column: 1 / -1;
+}
+
+.checklist, .steps {
+  margin: 0;
+  padding-left: 1.1em;
+}
+
+.checklist li, .steps li {
+  margin: 8px 0;
+}
+
+.cta-inline {
+  display: inline-block;
+  margin-top: 14px;
+  background: var(--primary-color);
+  color: var(--light-text-color);
+  padding: 10px 16px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cta-inline:hover {
+  background: var(--accent-color);
+  color: var(--light-text-color);
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .content-grid { grid-template-columns: 1fr; }
+  .page-hero { padding: 38px 0; }
+}

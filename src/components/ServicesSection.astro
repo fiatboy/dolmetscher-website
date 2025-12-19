@@ -4,35 +4,65 @@ import ServiceCard from './ServiceCard.astro';
 
 const services = [
   {
-    iconClass: "icon-expertise", // Platzhalter-Klasse
-    title: "Fachkompetenz",
-    text: "Spezialisierte Übersetzer für Technik, Recht, Medizin & Marketing."
+    title: "Deutsch ↔ Türkisch Sprachmittlung",
+    text: "Professionelle Sprachmittlung zwischen Deutsch und Türkisch – präzise, verständlich und kultursensibel in jeder Situation."
   },
   {
-    iconClass: "icon-languages", // Platzhalter-Klasse
-    title: "Sprachenvielfalt",
-    text: "Präzise Übersetzungen in über 50 Sprachen weltweit." // Beispiel anpassen!
+    title: "Begleit- & Gesprächsdolmetschen",
+    text: "Unterstützung bei Behördenterminen, Arztgesprächen, Beratungen und persönlichen Gesprächen – diskret und zuverlässig."
   },
   {
-    iconClass: "icon-quality", // Platzhalter-Klasse
-    title: "Qualität & Muttersprachler",
-    text: "Höchste Qualität durch Muttersprachler und ISO-zertifizierte Prozesse." // Beispiel anpassen!
+    title: "Vertrauen, Genauigkeit & Empathie",
+    text: "Klare Kommunikation ohne Missverständnisse – mit sprachlicher Genauigkeit, Neutralität und dem nötigen Fingerspitzengefühl."
   }
 ];
 ---
 <section class="services-section">
   <div class="container">
-    {/* Optional: Eine Überschrift für den Abschnitt */}
-    {/* <h2 style="text-align: center; margin-bottom: 40px;">Unsere Leistungen im Überblick</h2> */}
-
     <div class="services-grid">
-      {services.map(service => (
-        <ServiceCard
-          iconClass={service.iconClass}
-          title={service.title}
-          text={service.text}
-        />
-      ))}
+      {/* 1) Sprachmittlung */}
+      <ServiceCard title={services[0].title} text={services[0].text}>
+        <svg
+          slot="icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10Z" stroke="currentColor" stroke-width="2"/>
+          <path d="M2 12h20" stroke="currentColor" stroke-width="2"/>
+          <path d="M12 2c3 3 5 7 5 10s-2 7-5 10c-3-3-5-7-5-10s2-7 5-10Z" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </ServiceCard>
+
+      {/* 2) Gespräche begleiten */}
+      <ServiceCard title={services[1].title} text={services[1].text}>
+        <svg
+          slot="icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path d="M21 12c0 4.418-4.03 8-9 8a10.9 10.9 0 0 1-3.6-.6L3 21l1.2-4A7.3 7.3 0 0 1 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M7.5 12h9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M7.5 9h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </ServiceCard>
+
+      {/* 3) Vertrauen & Genauigkeit */}
+      <ServiceCard title={services[2].title} text={services[2].text}>
+        <svg
+          slot="icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <path d="m8.5 12.5 2.2 2.2 4.8-5.2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </ServiceCard>
     </div>
   </div>
 </section>

@@ -1,14 +1,15 @@
-// astro.config.mjs (NEUER ANSATZ)
+// astro.config.mjs
 import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite'; // Import für Vite Plugin
+import tailwindcss from '@tailwindcss/vite';
+import sitemap from '@astrojs/sitemap';
 
-// https://astro.build/config
 export default defineConfig({
-  // KEINE Tailwind-Integration hier im 'integrations' Array!
-  integrations: [], 
+  site: 'https://zehra-yacine.de',
 
-  // Konfiguration über Vite
-  vite: { 
-    plugins: [tailwindcss()] 
-  }
+  // du brauchst hier weiterhin keine Tailwind-Integration
+  integrations: [sitemap()],
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });

@@ -1,23 +1,78 @@
 ---
-// src/pages/ueber-mich.astro (Basisversion)
-import BaseLayout from '../layouts/BaseLayout.astro'; // Importiere das Layout
+import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Setze den Titel für diese spezifische Seite
-const pageTitle = "Über Mich | [Dein Name] - Sprachmittlung"; 
+const pageTitle = "Über mich – Sprachmittlerin Deutsch Türkisch Augsburg | Zehra Yacine";
+const pageDescription =
+  "Zehra Yacine – Sprachmittlerin für Deutsch ↔ Türkisch in Augsburg. Vertrauensvolle, kultursensible Kommunikation bei Behörden, Arztgesprächen und Beratungen.";
 ---
-{/* Nutze das Layout und übergib den Titel */}
-<BaseLayout title={pageTitle}>
-  {/* Platzhalter-Inhalt für diese Seite */}
-  <h2 class="text-2xl font-semibold mb-4">Über Mich</h2> {/* Beispiel-Unterüberschrift */}
-  <div class="bg-white p-6 rounded-lg shadow border border-gray-200 space-y-3"> {/* Optional: Weißer Kasten für Inhalt */}
-    <p>
-      Hier erfahren Sie bald mehr über mich, meine Motivation, meine Erfahrung (insbesondere mit minderjährigen Flüchtlingen und älteren Menschen bei Arztbesuchen) und meine Arbeitsweise.
-    </p>
-    <p>
-      [Platzhalter für weiteren Text...]
-    </p>
-    <p class="text-sm italic text-gray-600">
-      Hinweis: Ich verfüge aktuell über praktische Erfahrung, aber keine formelle Vereidigung. (Dieser Hinweis sollte hier oder bei den Leistungen klar platziert werden).
-    </p>
-  </div>
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <section class="page-hero">
+    <div class="container">
+      <h1>Über mich</h1>
+      <p>
+        Ich unterstütze Menschen dabei, sich in wichtigen Situationen verständlich, respektvoll und sicher auszudrücken – auf
+        <strong> Deutsch ↔ Türkisch</strong>, in Augsburg und Umgebung.
+      </p>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="container">
+      <div class="content-grid">
+        <div class="content-card">
+          <h2>Wer ich bin</h2>
+          <p>
+            Mein Name ist <strong>Zehra Yacine</strong>. Ich biete Sprachmittlung zwischen Deutsch und Türkisch an – mit Fokus auf
+            klare Kommunikation, Neutralität und einem sensiblen Umgang mit persönlichen Themen.
+          </p>
+          <p>
+            Besonders wichtig ist mir, dass sich alle Beteiligten verstanden fühlen: die Person, die Unterstützung benötigt, aber
+            auch Ärzt:innen, Behörden, Beratungsstellen oder soziale Einrichtungen.
+          </p>
+
+          <a class="cta-inline" href="/kontakt">Kontakt aufnehmen</a>
+        </div>
+
+        <div class="content-card">
+          <h2>Portrait</h2>
+
+          <img
+            src="/portrait.jpg"
+            alt="Zehra Yacine – Sprachmittlung Deutsch Türkisch in Augsburg"
+            style="width:100%; height:auto; border-radius: 8px; display:block;"
+            loading="lazy"
+          />
+
+          <p style="margin-top:14px; color:#555;">
+            <strong>Diskret · Respektvoll · Kultursensibel</strong><br />
+            Für Gespräche, in denen es auf jedes Detail ankommt.
+          </p>
+        </div>
+
+        <div class="content-card content-card--full">
+          <h2>Wie ich arbeite</h2>
+          <ul class="checklist">
+            <li><strong>Verständlich:</strong> Inhalte werden sinngemäß und klar übertragen – ohne Fachchinesisch.</li>
+            <li><strong>Neutral:</strong> Ich dolmetsche, ich bewerte nicht – ruhige und faire Gesprächsführung.</li>
+            <li><strong>Vertraulich:</strong> Diskretion ist selbstverständlich, gerade bei sensiblen Themen.</li>
+            <li><strong>Kultursensibel:</strong> Ich achte auf Ton, Kontext und Missverständnisse zwischen den Kulturen.</li>
+          </ul>
+
+          <p style="margin-top:14px;">
+            Wenn du unsicher bist, ob dein Termin passt: Schreib mir kurz – ich sage dir ehrlich, ob ich unterstützen kann.
+          </p>
+        </div>
+
+        <div class="content-card content-card--full">
+          <h2>Wichtiger Hinweis</h2>
+          <p style="color:#555;">
+            Ich biete <strong>Sprachmittlung / Begleitdolmetschen</strong> an (z. B. Arzt, Beratung, Alltag, soziale Träger).
+            <strong>Keine</strong> juristisch relevanten Einsätze wie Gericht/Notar/behördliche Vereidigung und
+            <strong>keine</strong> schriftlichen Übersetzungen.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
