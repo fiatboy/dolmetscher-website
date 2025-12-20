@@ -79,6 +79,7 @@ a:hover {
   gap: 14px;
   text-decoration: none;
   color: var(--text-color);
+  min-width: 0;
 }
 
 .logo-image {
@@ -98,6 +99,7 @@ a:hover {
   font-size: 1.15rem;
   letter-spacing: 0.2px;
   color: #3a3f46;
+  white-space: nowrap;
 }
 
 .brand-subtitle {
@@ -107,16 +109,25 @@ a:hover {
   margin-top: 2px;
 }
 
-.main-navigation {
+/* Rechtsblock: Desktop */
+.nav-right {
   margin-left: auto;
+  display: flex;
+  align-items: center;
 }
 
-.main-navigation ul {
+/* Desktop: Navigation + Sprache rechts mit Abstand dazwischen */
+.nav-right--desktop {
+  gap: 34px; /* Abstand zwischen Menü und Sprachwahl */
+}
+
+.main-navigation .nav-links {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   gap: 26px;
+  align-items: center;
 }
 
 .main-navigation a {
@@ -130,16 +141,165 @@ a:hover {
   text-decoration: none;
 }
 
-/* Mobile: Logo + Text kleiner, Navigation kann umbrechen */
-@media (max-width: 768px) {
+/* Sprachlinks */
+.lang-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.lang-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.lang-link .code {
+  letter-spacing: 0.4px;
+}
+
+.lang-sep {
+  opacity: 0.45;
+}
+
+.lang-link.is-inactive {
+  opacity: 0.55;
+}
+
+.lang-link.is-active {
+  opacity: 1;
+}
+
+/* Mobile-Block standardmäßig aus */
+.nav-right--mobile {
+  display: none;
+}
+
+/* ------------------------- */
+/* Mobile Menü (Burger) */
+/* ------------------------- */
+.mobile-menu {
+  position: relative;
+}
+
+.mobile-menu > summary {
+  list-style: none;
+}
+
+.mobile-menu > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Burger: KEIN Rand/Box, 3 dicke Streifen mit runden Enden */
+.burger {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  /* bewusst ohne Border/Background */
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.burger-lines {
+  position: relative;
+  width: 24px;
+  height: 18px;
+  display: inline-block;
+}
+
+.burger-lines::before,
+.burger-lines::after,
+.burger-lines {
+  border-radius: 999px; /* runde Enden */
+}
+
+.burger-lines {
+  background: var(--text-color);
+  height: 3px;
+}
+
+.burger-lines::before,
+.burger-lines::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 24px;
+  height: 3px;
+  background: var(--text-color);
+}
+
+.burger-lines::before {
+  top: -7px;
+}
+
+.burger-lines::after {
+  top: 7px;
+}
+
+/* Dropdown Panel */
+.mobile-nav {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  background: var(--background-light);
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+  border-radius: 12px;
+  padding: 10px;
+  min-width: 220px;
+}
+
+.mobile-links {
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mobile-links a {
+  display: block;
+  padding: 10px 10px;
+  border-radius: 10px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.mobile-links a:hover {
+  background: rgba(0,0,0,0.05);
+  text-decoration: none;
+}
+
+/* ------------------------- */
+/* Responsive Header Verhalten */
+/* ------------------------- */
+@media (max-width: 900px) {
+  /* Desktop-Rechtsblock aus, Mobile-Rechtsblock an */
+  .nav-right--desktop { display: none; }
+  .nav-right--mobile {
+    display: inline-flex;
+    gap: 18px; /* Abstand Sprache <-> Burger */
+    align-items: center;
+  }
+
   .logo-image { height: 54px; }
   .brand-title { font-size: 1.05rem; }
   .brand-subtitle { font-size: 0.9rem; }
 
-  .main-navigation ul {
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+  /* Falls der Titel zu lang ist: sauber kürzen statt Layout sprengen */
+  .brand-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -345,59 +505,4 @@ a:hover {
 @media (max-width: 768px) {
   .content-grid { grid-template-columns: 1fr; }
   .page-hero { padding: 38px 0; }
-}
-
-/* ------------------------- */
-/* Sprache: DE | TR (minimal, ohne Toggle/Rand) */
-/* ------------------------- */
-.lang-links {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.lang-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-
-  text-decoration: none;
-  font-weight: 650;
-  color: var(--text-color);
-}
-
-.lang-link:hover {
-  text-decoration: none;
-  color: var(--primary-color);
-}
-
-.lang-link.is-inactive {
-  opacity: 0.45;
-}
-
-.lang-sep {
-  opacity: 0.35;
-}
-
-.lang-link:focus-visible {
-  outline: 2px solid rgba(230,168,73,0.85);
-  outline-offset: 2px;
-  border-radius: 6px;
-}
-
-/* Mobile: etwas enger */
-@media (max-width: 768px) {
-  .lang-links { gap: 8px; }
-  .lang-link { gap: 6px; }
-}
-
-/* Mehr Abstand zwischen "Kontakt" und Sprachwahl */
-.main-navigation ul .lang-links {
-  margin-left: 24px; /* ggf. 18–32 testen */
-}
-
-@media (max-width: 768px) {
-  .main-navigation ul .lang-links {
-    margin-left: 12px;
-  }
 }

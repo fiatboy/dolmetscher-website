@@ -8,30 +8,25 @@ const isTR = pathname.startsWith("/tr");
 const dePath = isTR ? pathname.replace(/^\/tr(?=\/|$)/, "") || "/" : pathname;
 const trPath = isTR ? pathname : `/tr${pathname === "/" ? "" : pathname}`;
 
-let deHref = dePath; // z.B. /leistungen
-let trHref = trPath; // z.B. /tr/leistungen
+let deHref = dePath;
+let trHref = trPath;
 
 // ---
 // Sonderfall: Impressum/Datenschutz gibt es nur auf Deutsch.
-// Daher darf TR niemals auf /tr/impressum oder /tr/datenschutz zeigen.
 // ---
 const legalDE = new Set(["/impressum", "/datenschutz"]);
-
-// Wenn wir auf DE-legal sind und TR gewählt wird -> auf TR-Startseite umleiten (kein 404)
 if (!isTR && legalDE.has(dePath)) {
   trHref = "/tr/";
 }
 
-// Wenn jemand doch auf /tr/impressum oder /tr/datenschutz landet (z.B. alte Links),
-// dann soll DE zurück auf die deutschen Legal-Seiten zeigen.
 const legalTR = new Set(["/tr/impressum", "/tr/datenschutz"]);
 if (isTR && legalTR.has(pathname)) {
   deHref = pathname.replace(/^\/tr/, "") || "/";
-  trHref = "/tr/"; // sicherheitshalber
+  trHref = "/tr/";
 }
 
 // ---
-// Navigation: je nach Sprache Labels + Links (DE/TR Seiten)
+// Navigation: Labels + Links (DE/TR Seiten)
 // ---
 const navItemsDE = [
   { href: "/", label: "Start" },
@@ -52,7 +47,7 @@ const navItems = isTR ? navItemsTR : navItemsDE;
 // Brand-Link je nach Sprache
 const brandHref = isTR ? "/tr/" : "/";
 
-// Subtitle je nach Sprache (NEU)
+// Brand-Subtitle je nach Sprache (nur Text im Header)
 const brandSubtitle = isTR
   ? "Almanca ↔ Türkçe Dil Aracılığı"
   : "Sprachmittlung Deutsch ↔ Türkisch";
@@ -72,41 +67,89 @@ const brandSubtitle = isTR
       </span>
     </a>
 
-    <nav class="main-navigation" aria-label={isTR ? "Ana navigasyon" : "Hauptnavigation"}>
-      <ul>
-        {navItems.map((item) => (
-          <li>
-            <a href={item.href}>{item.label}</a>
-          </li>
-        ))}
+    {/* Desktop: Navigation + Sprache ganz rechts */}
+    <div class="nav-right nav-right--desktop">
+      <nav class="main-navigation" aria-label={isTR ? "Ana navigasyon" : "Hauptnavigation"}>
+        <ul class="nav-links">
+          {navItems.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
-        {/* Sprachwahl: bleibt auf gleicher Seite, außer bei Impressum/Datenschutz -> TR geht auf /tr/ */}
-        <li class="lang-links" aria-label={isTR ? "Dil seçimi" : "Sprache wählen"}>
-          <a
-            class={`lang-link ${!isTR ? "is-active" : "is-inactive"}`}
-            href={deHref}
-            lang="de"
-            hreflang="de"
-            aria-current={!isTR ? "page" : undefined}
-            aria-label="Deutsch"
-          >
-            <span aria-hidden="true">🇩🇪</span> <span class="code">DE</span>
-          </a>
+      <div class="lang-links" aria-label={isTR ? "Dil seçimi" : "Sprache wählen"}>
+        <a
+          class={`lang-link ${!isTR ? "is-active" : "is-inactive"}`}
+          href={deHref}
+          lang="de"
+          hreflang="de"
+          aria-current={!isTR ? "page" : undefined}
+          aria-label="Deutsch"
+        >
+          <span aria-hidden="true">🇩🇪</span> <span class="code">DE</span>
+        </a>
 
-          <span class="lang-sep" aria-hidden="true">|</span>
+        <span class="lang-sep" aria-hidden="true">|</span>
 
-          <a
-            class={`lang-link ${isTR ? "is-active" : "is-inactive"}`}
-            href={trHref}
-            lang="tr"
-            hreflang="tr"
-            aria-current={isTR ? "page" : undefined}
-            aria-label="Türkçe"
-          >
-            <span aria-hidden="true">🇹🇷</span> <span class="code">TR</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+        <a
+          class={`lang-link ${isTR ? "is-active" : "is-inactive"}`}
+          href={trHref}
+          lang="tr"
+          hreflang="tr"
+          aria-current={isTR ? "page" : undefined}
+          aria-label="Türkçe"
+        >
+          <span aria-hidden="true">🇹🇷</span> <span class="code">TR</span>
+        </a>
+      </div>
+    </div>
+
+    {/* Mobile: Sprache rechts, Burger ganz rechts (modern, ohne Rand) */}
+    <div class="nav-right nav-right--mobile" aria-label={isTR ? "Menü ve dil" : "Menü und Sprache"}>
+      <div class="lang-links" aria-label={isTR ? "Dil seçimi" : "Sprache wählen"}>
+        <a
+          class={`lang-link ${!isTR ? "is-active" : "is-inactive"}`}
+          href={deHref}
+          lang="de"
+          hreflang="de"
+          aria-current={!isTR ? "page" : undefined}
+          aria-label="Deutsch"
+        >
+          <span aria-hidden="true">🇩🇪</span> <span class="code">DE</span>
+        </a>
+
+        <span class="lang-sep" aria-hidden="true">|</span>
+
+        <a
+          class={`lang-link ${isTR ? "is-active" : "is-inactive"}`}
+          href={trHref}
+          lang="tr"
+          hreflang="tr"
+          aria-current={isTR ? "page" : undefined}
+          aria-label="Türkçe"
+        >
+          <span aria-hidden="true">🇹🇷</span> <span class="code">TR</span>
+        </a>
+      </div>
+
+      {/* Ohne JS: details/summary als Mobile-Menü */}
+      <details class="mobile-menu">
+        <summary class="burger" aria-label={isTR ? "Menüyü aç/kapat" : "Menü öffnen/schließen"}>
+          <span class="burger-lines" aria-hidden="true"></span>
+        </summary>
+
+        <nav class="mobile-nav" aria-label={isTR ? "Mobil menü" : "Mobiles Menü"}>
+          <ul class="mobile-links">
+            {navItems.map((item) => (
+              <li>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </details>
+    </div>
   </div>
 </header>
