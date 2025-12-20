@@ -1,15 +1,31 @@
 ---
 // src/components/Footer.astro
+// Fix: Impressum/Datenschutz bleiben NUR auf Deutsch.
+// Deshalb immer auf /impressum und /datenschutz verlinken (auch wenn /tr aktiv ist),
+// damit es in der türkischen Version kein 404 gibt.
+
 const currentYear = new Date().getFullYear();
+
+// Sprache anhand URL erkennen
+const pathname = Astro.url?.pathname ?? "/";
+const isTR = pathname.startsWith("/tr");
+
+// Texte je nach Sprache (Links bleiben DE)
+const labelImpressum = isTR ? "Impressum (DE)" : "Impressum";
+const labelDatenschutz = isTR ? "Datenschutz (DE)" : "Datenschutz";
+
+// Optionaler kurzer Footer-Text je nach Sprache
+const footerText = isTR
+  ? `© ${currentYear} Zehra Yacine · Almanca ↔ Türkçe Dil Aracılığı`
+  : `© ${currentYear} Zehra Yacine · Sprachmittlung Deutsch ↔ Türkisch`;
 ---
+
 <footer class="site-footer">
   <div class="container">
     <p>
-      © {currentYear} Zehra Yacine · Sprachmittlung Deutsch ↔ Türkisch · Augsburg
-      &nbsp;|&nbsp;
-      <a href="/impressum">Impressum</a>
-      &nbsp;|&nbsp;
-      <a href="/datenschutz">Datenschutz</a>
+      {footerText} |
+      <a href="/impressum">{labelImpressum}</a> |
+      <a href="/datenschutz">{labelDatenschutz}</a>
     </p>
   </div>
 </footer>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zehra-yacine.de/sitemap-index.xml

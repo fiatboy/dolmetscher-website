@@ -1,25 +1,111 @@
 ---
+const pathname = Astro.url?.pathname ?? "/";
+const isTR = pathname.startsWith("/tr");
+
+// ---
+// Sprachwechsel-URLs berechnen (Standard: gleicher Pfad mit/ohne /tr)
+// ---
+const dePath = isTR ? pathname.replace(/^\/tr(?=\/|$)/, "") || "/" : pathname;
+const trPath = isTR ? pathname : `/tr${pathname === "/" ? "" : pathname}`;
+
+let deHref = dePath; // z.B. /leistungen
+let trHref = trPath; // z.B. /tr/leistungen
+
+// ---
+// Sonderfall: Impressum/Datenschutz gibt es nur auf Deutsch.
+// Daher darf TR niemals auf /tr/impressum oder /tr/datenschutz zeigen.
+// ---
+const legalDE = new Set(["/impressum", "/datenschutz"]);
+
+// Wenn wir auf DE-legal sind und TR gewählt wird -> auf TR-Startseite umleiten (kein 404)
+if (!isTR && legalDE.has(dePath)) {
+  trHref = "/tr/";
+}
+
+// Wenn jemand doch auf /tr/impressum oder /tr/datenschutz landet (z.B. alte Links),
+// dann soll DE zurück auf die deutschen Legal-Seiten zeigen.
+const legalTR = new Set(["/tr/impressum", "/tr/datenschutz"]);
+if (isTR && legalTR.has(pathname)) {
+  deHref = pathname.replace(/^\/tr/, "") || "/";
+  trHref = "/tr/"; // sicherheitshalber
+}
+
+// ---
+// Navigation: je nach Sprache Labels + Links (DE/TR Seiten)
+// ---
+const navItemsDE = [
+  { href: "/", label: "Start" },
+  { href: "/leistungen", label: "Leistungen" },
+  { href: "/ueber-mich", label: "Über mich" },
+  { href: "/kontakt", label: "Kontakt" },
+];
+
+const navItemsTR = [
+  { href: "/tr/", label: "Ana Sayfa" },
+  { href: "/tr/leistungen", label: "Hizmetler" },
+  { href: "/tr/ueber-mich", label: "Hakkımda" },
+  { href: "/tr/kontakt", label: "İletişim" },
+];
+
+const navItems = isTR ? navItemsTR : navItemsDE;
+
+// Brand-Link je nach Sprache
+const brandHref = isTR ? "/tr/" : "/";
+
+// Subtitle je nach Sprache (NEU)
+const brandSubtitle = isTR
+  ? "Almanca ↔ Türkçe Dil Aracılığı"
+  : "Sprachmittlung Deutsch ↔ Türkisch";
 ---
+
 <header class="site-header">
   <div class="container header-inner">
-    <a href="/" class="brand" aria-label="Zur Startseite">
+    <a href={brandHref} class="brand" aria-label={isTR ? "Ana sayfa" : "Startseite"}>
       <img
         src="/logo.png"
         alt="Zehra Yacine – Sprachmittlung Deutsch ↔ Türkisch"
         class="logo-image"
       />
-
       <span class="brand-title">
-        Zehra Yacine – Sprachmittlung Deutsch ↔ Türkisch
+        Zehra Yacine
+        <span class="brand-subtitle">{brandSubtitle}</span>
       </span>
     </a>
 
-    <nav class="main-navigation" aria-label="Hauptnavigation">
+    <nav class="main-navigation" aria-label={isTR ? "Ana navigasyon" : "Hauptnavigation"}>
       <ul>
-        <li><a href="/">Start</a></li>
-        <li><a href="/leistungen">Leistungen</a></li>
-        <li><a href="/ueber-mich">Über mich</a></li>
-        <li><a href="/kontakt">Kontakt</a></li>
+        {navItems.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))}
+
+        {/* Sprachwahl: bleibt auf gleicher Seite, außer bei Impressum/Datenschutz -> TR geht auf /tr/ */}
+        <li class="lang-links" aria-label={isTR ? "Dil seçimi" : "Sprache wählen"}>
+          <a
+            class={`lang-link ${!isTR ? "is-active" : "is-inactive"}`}
+            href={deHref}
+            lang="de"
+            hreflang="de"
+            aria-current={!isTR ? "page" : undefined}
+            aria-label="Deutsch"
+          >
+            <span aria-hidden="true">🇩🇪</span> <span class="code">DE</span>
+          </a>
+
+          <span class="lang-sep" aria-hidden="true">|</span>
+
+          <a
+            class={`lang-link ${isTR ? "is-active" : "is-inactive"}`}
+            href={trHref}
+            lang="tr"
+            hreflang="tr"
+            aria-current={isTR ? "page" : undefined}
+            aria-label="Türkçe"
+          >
+            <span aria-hidden="true">🇹🇷</span> <span class="code">TR</span>
+          </a>
+        </li>
       </ul>
     </nav>
   </div>

@@ -346,3 +346,58 @@ a:hover {
   .content-grid { grid-template-columns: 1fr; }
   .page-hero { padding: 38px 0; }
 }
+
+/* ------------------------- */
+/* Sprache: DE | TR (minimal, ohne Toggle/Rand) */
+/* ------------------------- */
+.lang-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lang-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  text-decoration: none;
+  font-weight: 650;
+  color: var(--text-color);
+}
+
+.lang-link:hover {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+.lang-link.is-inactive {
+  opacity: 0.45;
+}
+
+.lang-sep {
+  opacity: 0.35;
+}
+
+.lang-link:focus-visible {
+  outline: 2px solid rgba(230,168,73,0.85);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Mobile: etwas enger */
+@media (max-width: 768px) {
+  .lang-links { gap: 8px; }
+  .lang-link { gap: 6px; }
+}
+
+/* Mehr Abstand zwischen "Kontakt" und Sprachwahl */
+.main-navigation ul .lang-links {
+  margin-left: 24px; /* ggf. 18–32 testen */
+}
+
+@media (max-width: 768px) {
+  .main-navigation ul .lang-links {
+    margin-left: 12px;
+  }
+}

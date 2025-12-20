@@ -1,0 +1,55 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const pageTitle = "Hizmetler | Zehra Yacine – Almanca ↔ Türkçe (Augsburg)";
+const description =
+  "Augsburg’da Almanca ↔ Türkçe dil aracılığı: refakat ve görüşme tercümanlığı; günlük hayat, kurumlar ve doktor görüşmeleri için destek.";
+---
+
+<BaseLayout title={pageTitle} description={description}>
+  <section class="page-hero">
+    <div class="container">
+      <h1>Hizmetler</h1>
+      <p>
+        Almanca ↔ Türkçe dil aracılığı ile günlük hayatta ve görüşmelerde anlaşılır iletişim desteği.
+      </p>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="container">
+      <div class="content-grid">
+        <div class="content-card">
+          <h2>Hangi konularda yardımcı oluyorum?</h2>
+          <p>
+            Aşağıdaki durumlarda sözlü dil aracılığı / refakat tercümanlığı sunuyorum:
+          </p>
+          <ul class="checklist">
+            <li>Doktor görüşmeleri ve sağlık randevuları</li>
+            <li>Danışmanlık görüşmeleri (sosyal destek, yönlendirme vb.)</li>
+            <li>Günlük hayat iletişimi (okul, randevu, kurum görüşmeleri)</li>
+            <li>Kurumlarla iletişim desteği (resmi süreçlerde destek, hukuki işlemler hariç)</li>
+          </ul>
+          <a class="cta-inline" href="/tr/kontakt">İletişime geç</a>
+        </div>
+
+        <div class="content-card">
+          <h2>Nasıl ilerliyoruz?</h2>
+          <ol class="steps">
+            <li>Kısaca konu, tarih/saat ve yer bilgisini paylaşırsınız.</li>
+            <li>İhtiyacı netleştirip kapsamı birlikte belirleriz.</li>
+            <li>Görüşmede anlaşılır ve sakin bir iletişim sağlarım.</li>
+          </ol>
+        </div>
+
+        <div class="content-card content-card--full">
+          <h2>Önemli not</h2>
+          <p>
+            <strong>Mahkeme, noter</strong> gibi resmi/yeminli tercümanlık gerektiren işlemler ve
+            <strong>yazılı çeviri</strong> hizmeti sunmuyorum.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

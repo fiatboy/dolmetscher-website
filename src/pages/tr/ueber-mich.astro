@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const pageTitle = "Hakkımda – Augsburg’da Almanca Türkçe Dil Aracılığı | Zehra Yacine";
+const pageDescription =
+  "Zehra Yacine – Augsburg’da Almanca ↔ Türkçe dil aracılığı. Kurum görüşmeleri, doktor konuşmaları ve danışmanlıklarda güvene dayalı, kültüre duyarlı iletişim desteği.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <section class="page-hero">
+    <div class="container">
+      <h1>Hakkımda</h1>
+      <p>
+        Önemli durumlarda insanların kendilerini anlaşılır, saygılı ve güvenle ifade edebilmelerine yardımcı oluyorum —
+        <strong> Almanca ↔ Türkçe</strong>, Augsburg ve çevresinde.
+      </p>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="container">
+      <div class="content-grid">
+        <div class="content-card">
+          <h2>Ben kimim?</h2>
+          <p>
+            Benim adım <strong>Zehra Yacine</strong>. Almanca ve Türkçe arasında dil aracılığı sunuyorum —
+            odak noktam net iletişim, tarafsızlık ve kişisel konularda hassas bir yaklaşımdır.
+          </p>
+          <p>
+            Her iki tarafın da kendini anlaşılmış hissetmesi benim için önemlidir: desteğe ihtiyaç duyan kişi kadar
+            doktorlar, kurumlar, danışmanlık merkezleri veya sosyal kuruluşlar da.
+          </p>
+
+          <a class="cta-inline" href="/tr/kontakt">İletişime geç</a>
+        </div>
+
+        <div class="content-card">
+          <h2>Portre</h2>
+
+          <img
+            src="/portrait.jpg"
+            alt="Zehra Yacine – Augsburg’da Almanca Türkçe dil aracılığı"
+            style="width:100%; height:auto; border-radius: 8px; display:block;"
+            loading="lazy"
+          />
+
+          <p style="margin-top:14px; color:#555;">
+            <strong>Gizli · Saygılı · Kültüre duyarlı</strong><br />
+            Her detayın önemli olduğu görüşmeler için.
+          </p>
+        </div>
+
+        <div class="content-card content-card--full">
+          <h2>Nasıl çalışıyorum?</h2>
+          <ul class="checklist">
+            <li><strong>Anlaşılır:</strong> İçeriği anlamı koruyarak net şekilde aktarırım – gereksiz “jargon” olmadan.</li>
+            <li><strong>Tarafsız:</strong> Tercüme ederim, değerlendirmem – sakin ve adil bir iletişim sağlarım.</li>
+            <li><strong>Gizli:</strong> Özellikle hassas konularda gizlilik benim için vazgeçilmezdir.</li>
+            <li><strong>Kültüre duyarlı:</strong> Tonu, bağlamı ve kültürler arası yanlış anlaşılmaları dikkate alırım.</li>
+          </ul>
+
+          <p style="margin-top:14px;">
+            Randevunuzun uygun olup olmadığından emin değilseniz: Kısaca yazın — size dürüstçe yardımcı olup olamayacağımı söylerim.
+          </p>
+        </div>
+
+        <div class="content-card content-card--full">
+          <h2>Önemli Not</h2>
+          <p style="color:#555;">
+            <strong>Dil aracılığı / refakat tercümanlığı</strong> sunuyorum (örn. doktor, danışmanlık, günlük yaşam, sosyal kuruluşlar).
+            <strong>Mahkeme/noter</strong> gibi hukuki açıdan bağlayıcı (yeminli) işlemler için uygun değilim ve
+            <strong>yazılı çeviri</strong> hizmeti sunmuyorum.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
