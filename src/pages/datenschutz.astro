@@ -1,0 +1,111 @@
+---
+// src/pages/datenschutz.astro
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Datenschutz | Zehra Yacine – Sprachmittlung Deutsch ↔ Türkisch (Augsburg)";
+const description =
+  "Datenschutzerklärung für zehra-yacine.de – Sprachmittlung Deutsch ↔ Türkisch in Augsburg.";
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="page-hero">
+    <div class="container">
+      <h1>Datenschutzerklärung</h1>
+      <p>Informationen zur Verarbeitung personenbezogener Daten gemäß DSGVO.</p>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="container">
+      <div class="content-grid">
+        <div class="content-card">
+          <h2>1. Verantwortliche Stelle</h2>
+          <p>
+            <strong>Zehra Yacine</strong><br />
+            Straße Hausnr.<br />
+            PLZ Augsburg<br />
+            Deutschland
+          </p>
+          <p>
+            E-Mail:
+            <a href="mailto:DEINE-EMAIL@DOMAIN.DE">DEINE-EMAIL@DOMAIN.DE</a><br />
+            Telefon: +49 ...
+          </p>
+        </div>
+
+        <div class="content-card">
+          <h2>2. Allgemeine Hinweise</h2>
+          <p>
+            Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.
+            Diese Datenschutzerklärung erläutert, welche Daten verarbeitet werden und zu welchem Zweck.
+          </p>
+          <p>
+            Je nach Situation basiert die Verarbeitung auf folgenden Rechtsgrundlagen:
+            Art. 6 Abs. 1 lit. b DSGVO (Vertrag/Anbahnung), Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse)
+            oder Art. 6 Abs. 1 lit. a DSGVO (Einwilligung).
+          </p>
+        </div>
+
+        <div class="content-card content-card--full">
+          <h2>3. Hosting & Server-Logfiles (Bereitstellung der Website)</h2>
+          <p>
+            Diese Website wird über <strong>Cloudflare Pages</strong> bereitgestellt (Cloudflare, Inc.).
+            Beim Aufruf der Website werden aus technischen Gründen Daten verarbeitet, um die Seite auszuliefern,
+            Stabilität sicherzustellen und Angriffe abzuwehren.
+          </p>
+          <p>
+            Dabei können insbesondere folgende Daten anfallen:
+          </p>
+          <ul class="checklist">
+            <li>IP-Adresse (ggf. gekürzt/temporär)</li>
+            <li>Datum und Uhrzeit der Anfrage</li>
+            <li>aufgerufene URL / Seite</li>
+            <li>Referrer-URL (die zuvor besuchte Seite, falls übermittelt)</li>
+            <li>Browser-/Geräteinformationen (User-Agent)</li>
+            <li>technische Statuscodes / Fehlerdaten</li>
+          </ul>
+          <p>
+            Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse:
+            sichere und effiziente Bereitstellung der Website).
+          </p>
+
+          <h2>4. Kontaktaufnahme per E-Mail</h2>
+          <p>
+            Wenn Sie mich per E-Mail kontaktieren, werden Ihre Angaben (z. B. Name, E-Mail-Adresse und Inhalte
+            der Nachricht) zur Bearbeitung der Anfrage verarbeitet.
+          </p>
+          <p>
+            Rechtsgrundlage ist in der Regel Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen/Kommunikation)
+            oder Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an effizienter Kommunikation).
+          </p>
+
+          <h2>5. Cookies & Tracking</h2>
+          <p>
+            Derzeit setze ich keine Analyse- oder Marketing-Tracking-Tools (z. B. Google Analytics) ein.
+            Es können technisch notwendige Mechanismen durch die Plattform entstehen (z. B. Sicherheitsfunktionen).
+          </p>
+
+          <h2>6. Ihre Rechte</h2>
+          <ul class="checklist">
+            <li>Auskunft (Art. 15 DSGVO)</li>
+            <li>Berichtigung (Art. 16 DSGVO)</li>
+            <li>Löschung (Art. 17 DSGVO)</li>
+            <li>Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+            <li>Datenübertragbarkeit (Art. 20 DSGVO)</li>
+            <li>Widerspruch (Art. 21 DSGVO)</li>
+            <li>Beschwerde bei einer Aufsichtsbehörde (Art. 77 DSGVO)</li>
+          </ul>
+
+          <h2>7. Speicherdauer</h2>
+          <p>
+            Ich speichere personenbezogene Daten nur so lange, wie es für die jeweiligen Zwecke erforderlich ist
+            oder gesetzliche Aufbewahrungsfristen bestehen.
+          </p>
+
+          <h2>8. Stand</h2>
+          <p>Stand: {new Date().toLocaleDateString("de-DE")}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

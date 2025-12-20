@@ -1,0 +1,91 @@
+---
+// src/pages/impressum.astro
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Impressum | Zehra Yacine – Sprachmittlung Deutsch ↔ Türkisch (Augsburg)";
+const description =
+  "Impressum von Zehra Yacine – Sprachmittlung Deutsch ↔ Türkisch in Augsburg.";
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="page-hero">
+    <div class="container">
+      <h1>Impressum</h1>
+      <p>Angaben gemäß § 5 TMG</p>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="container">
+      <div class="content-grid">
+        <div class="content-card">
+          <h2>Verantwortlich</h2>
+          <p>
+            <strong>Zehra Yacine</strong><br />
+            Sprachmittlung Deutsch ↔ Türkisch<br />
+            Augsburg, Deutschland
+          </p>
+
+          <p>
+            <strong>Anschrift</strong><br />
+            Straße Hausnr.<br />
+            PLZ Augsburg<br />
+            Deutschland
+          </p>
+
+          <p>
+            <strong>Kontakt</strong><br />
+            E-Mail:
+            <a href="mailto:DEINE-EMAIL@DOMAIN.DE">DEINE-EMAIL@DOMAIN.DE</a><br />
+            Telefon: +49 ...
+          </p>
+        </div>
+
+        <div class="content-card">
+          <h2>Hinweise zur Tätigkeit</h2>
+          <p>
+            Ich biete mündliche Sprachmittlung / Begleit- und Gesprächsdolmetschen
+            (Deutsch ↔ Türkisch) an – z. B. für Arztgespräche, Beratungen, Behörden
+            und Alltagssituationen.
+          </p>
+
+          <p>
+            <strong>Wichtiger Hinweis:</strong> Keine juristisch relevanten Dolmetschleistungen
+            (z. B. Gericht, Notar) und keine schriftlichen Fachübersetzungen.
+          </p>
+
+          <h2>Verbraucherstreitbeilegung</h2>
+          <p>
+            Ich bin nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor
+            einer Verbraucherschlichtungsstelle teilzunehmen.
+          </p>
+        </div>
+
+        <div class="content-card content-card--full">
+          <h2>Haftung für Inhalte</h2>
+          <p>
+            Als Diensteanbieter bin ich gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten
+            nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG bin ich als
+            Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde
+            Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige
+            Tätigkeit hinweisen.
+          </p>
+
+          <h2>Haftung für Links</h2>
+          <p>
+            Mein Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte ich keinen
+            Einfluss habe. Deshalb kann ich für diese fremden Inhalte auch keine Gewähr übernehmen.
+            Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber
+            der Seiten verantwortlich.
+          </p>
+
+          <h2>Urheberrecht</h2>
+          <p>
+            Die durch die Seitenbetreiberin erstellten Inhalte und Werke auf diesen Seiten unterliegen
+            dem deutschen Urheberrecht. Beiträge Dritter sind als solche gekennzeichnet.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
