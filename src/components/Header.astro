@@ -47,10 +47,14 @@ const navItems = isTR ? navItemsTR : navItemsDE;
 // Brand-Link je nach Sprache
 const brandHref = isTR ? "/tr/" : "/";
 
-// Brand-Subtitle je nach Sprache (nur Text im Header)
-const brandSubtitle = isTR
+// Brand-Subtitle je nach Sprache (full + short für mobile)
+const brandSubtitleFull = isTR
   ? "Almanca ↔ Türkçe Dil Aracılığı"
   : "Sprachmittlung Deutsch ↔ Türkisch";
+
+const brandSubtitleShort = isTR
+  ? "Dil Aracılığı"
+  : "Sprachmittlung";
 ---
 
 <header class="site-header">
@@ -63,11 +67,14 @@ const brandSubtitle = isTR
       />
       <span class="brand-title">
         Zehra Yacine
-        <span class="brand-subtitle">{brandSubtitle}</span>
+
+        <!-- Desktop: langer Untertitel | Mobile: kurzer Untertitel -->
+        <span class="brand-subtitle brand-subtitle--full">{brandSubtitleFull}</span>
+        <span class="brand-subtitle brand-subtitle--short">{brandSubtitleShort}</span>
       </span>
     </a>
 
-    {/* Desktop: Navigation + Sprache ganz rechts */}
+    <!-- Desktop: Navigation + Sprache ganz rechts -->
     <div class="nav-right nav-right--desktop">
       <nav class="main-navigation" aria-label={isTR ? "Ana navigasyon" : "Hauptnavigation"}>
         <ul class="nav-links">
@@ -106,7 +113,7 @@ const brandSubtitle = isTR
       </div>
     </div>
 
-    {/* Mobile: Sprache rechts, Burger ganz rechts (modern, ohne Rand) */}
+    <!-- Mobile: Sprache rechts + Burger -->
     <div class="nav-right nav-right--mobile" aria-label={isTR ? "Menü ve dil" : "Menü und Sprache"}>
       <div class="lang-links" aria-label={isTR ? "Dil seçimi" : "Sprache wählen"}>
         <a
@@ -134,7 +141,7 @@ const brandSubtitle = isTR
         </a>
       </div>
 
-      {/* Ohne JS: details/summary als Mobile-Menü */}
+      <!-- Ohne JS: details/summary als Mobile-Menü -->
       <details class="mobile-menu">
         <summary class="burger" aria-label={isTR ? "Menüyü aç/kapat" : "Menü öffnen/schließen"}>
           <span class="burger-lines" aria-hidden="true"></span>

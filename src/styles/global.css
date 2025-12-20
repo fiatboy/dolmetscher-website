@@ -102,12 +102,17 @@ a:hover {
   white-space: nowrap;
 }
 
+/* Untertitel-Grundstil */
 .brand-subtitle {
   font-size: 0.95rem;
   font-weight: 500;
   color: #6c757d;
   margin-top: 2px;
 }
+
+/* Desktop: nur "full" sichtbar */
+.brand-subtitle--full { display: inline; }
+.brand-subtitle--short { display: none; }
 
 /* Rechtsblock: Desktop */
 .nav-right {
@@ -294,6 +299,10 @@ a:hover {
 
   .logo-image { height: 54px; }
   .brand-title { font-size: 1.05rem; }
+
+  /* Mobile: statt langem Untertitel nur kurzer */
+  .brand-subtitle--full { display: none; }
+  .brand-subtitle--short { display: inline; }
   .brand-subtitle { font-size: 0.9rem; }
 
   /* Falls der Titel zu lang ist: sauber kürzen statt Layout sprengen */
