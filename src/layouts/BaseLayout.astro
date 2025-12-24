@@ -6,7 +6,11 @@ import Footer from '../components/Footer.astro';
 const {
   title = "Zehra Yacine – Sprachmittlung Deutsch ↔ Türkisch",
   description = "Sprachmittlung Deutsch ↔ Türkisch in Augsburg – Begleit- & Gesprächsdolmetschen für Alltag, Behörden und medizinische Gespräche.",
+  bodyClass = "",
 } = Astro.props;
+
+// Klassen sauber zusammenbauen (leerzeichen-normalisiert)
+const bodyClasses = [bodyClass].join(" ").replace(/\s+/g, " ").trim();
 ---
 
 <!doctype html>
@@ -18,16 +22,13 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    <!-- FAVICON: nur dein neues Icon -->
+    <!-- Favicon -->
     <link rel="icon" href="/favicon-logo.png" type="image/png" />
     <link rel="shortcut icon" href="/favicon-logo.png" type="image/png" />
     <link rel="apple-touch-icon" href="/favicon-logo.png" />
-
-    <!-- Optional: Canonical (wenn du es global willst, sonst pro Seite) -->
-    <!-- <link rel="canonical" href={`https://zehra-yacine.de${Astro.url.pathname.endsWith('/') ? Astro.url.pathname : Astro.url.pathname + '/'}`} /> -->
   </head>
 
-  <body>
+  <body class={bodyClasses}>
     <Header />
 
     <main>

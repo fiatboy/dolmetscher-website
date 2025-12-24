@@ -29,6 +29,46 @@ body {
   background-color: var(--background-light);
 }
 
+/* NEU: Home-Hintergrund über komplette Seitenlänge */
+body.home-bg {
+  /* Wichtig: Body-Hintergrund darf nicht von Body-Background-Color "zugedeckt" werden */
+  background-color: transparent;
+
+  background-image: url("/hero-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* Parallax-Feeling (Desktop). Mobil wird unten deaktiviert. */
+  background-attachment: fixed;
+
+  /* Damit ::before sauber unter dem Inhalt liegt */
+  position: relative;
+}
+
+/* NEU: leichter dunkler Schleier über den kompletten Home-Background,
+   damit Text/Kacheln immer gut lesbar bleiben */
+body.home-bg::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.28);
+  pointer-events: none;
+
+  /* WICHTIG:
+     z-index NICHT -1, sonst verschwindet es je nach Browser hinter html/body.
+     Stattdessen: Overlay auf z-index:0 und Inhalt auf z-index:1 */
+  z-index: 0;
+}
+
+/* Header / Main / Footer müssen über dem Overlay liegen */
+.site-header,
+main,
+.site-footer {
+  position: relative;
+  z-index: 1;
+}
+
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
   font-weight: 600;
@@ -315,17 +355,36 @@ a:hover {
 /* ------------------------- */
 /* Hero Bereich */
 /* ------------------------- */
+/* WICHTIG: Hero bekommt KEIN eigenes background-image mehr,
+   weil das Bild jetzt am body hängt */
 .hero {
-  background-color: var(--primary-color);
+  position: relative;
   color: var(--light-text-color);
-  padding: 80px 0;
   text-align: center;
+  padding: 110px 0 90px;
+  background: transparent;
+}
+
+/* ÄNDERUNG: Hero-Overlay deaktiviert (damit keine graue "Kante" entsteht) */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+/* Inhalt über Overlay */
+.hero .container {
+  position: relative;
+  z-index: 1;
 }
 
 .hero h1 {
   font-size: 2.8em;
   margin-bottom: 15px;
   color: var(--light-text-color);
+  text-shadow: 0 8px 22px rgba(0,0,0,0.35);
 }
 
 .hero p {
@@ -334,6 +393,7 @@ a:hover {
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  text-shadow: 0 6px 16px rgba(0,0,0,0.25);
 }
 
 .cta-button {
@@ -356,12 +416,37 @@ a:hover {
   text-decoration: none;
 }
 
+/* Mobil: fixed background kann ruckeln -> deaktivieren */
+@media (max-width: 768px) {
+  body.home-bg {
+    background-attachment: scroll;
+  }
+
+  .hero {
+    padding: 80px 0 70px;
+  }
+
+  .hero h1 {
+    font-size: 2.2em;
+  }
+
+  .hero p {
+    font-size: 1em;
+  }
+}
+
 /* ------------------------- */
 /* Leistungs-Kacheln (Services Section) */
 /* ------------------------- */
 .services-section {
-  padding: 60px 0;
-  background-color: var(--background-grey);
+  /* Transparenter Hintergrund, damit das Foto durchscheint */
+  background: transparent;
+
+  /* "WordPress Feeling": Kacheln über den Hero ziehen */
+  margin-top: -55px;
+  padding: 0 0 60px 0;
+  position: relative;
+  z-index: 2;
 }
 
 .services-grid {
@@ -371,16 +456,24 @@ a:hover {
 }
 
 .service-card {
-  background-color: var(--background-light);
+  /* Glasiger Look – damit Hintergrund sichtbar bleibt */
+  background: rgba(255, 255, 255, 0.90);
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+
   padding: 30px;
-  border-radius: var(--border-radius);
+  border-radius: 14px;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease;
+
+  /* „frei schwebend“ */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .service-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-7px);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
 }
 
 .card-icon {
@@ -410,11 +503,10 @@ a:hover {
   .services-grid {
     grid-template-columns: 1fr;
   }
-  .hero h1 {
-    font-size: 2.2em;
-  }
-  .hero p {
-    font-size: 1em;
+
+  /* auf mobil weniger Überlappung */
+  .services-section {
+    margin-top: -35px;
   }
 }
 
@@ -422,7 +514,11 @@ a:hover {
 /* Footer */
 /* ------------------------- */
 .site-footer {
-  background-color: var(--background-grey);
+  /* Wenn Home-Background aktiv ist, darf der Footer NICHT vollflächig grau sein */
+  background: rgba(225, 225, 225, 0.88);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+
   color: #6c757d;
   padding: 30px 0;
   margin-top: 60px;
@@ -462,9 +558,21 @@ a:hover {
   color: #444;
 }
 
+/* ------------------------- */
+/* Sections + Content Cards */
+/* ------------------------- */
 .page-section {
   padding: 50px 0;
   background: var(--background-light);
+}
+
+/* WICHTIGER FIX:
+   Auf Home soll die Section selbst transparent sein (damit das Foto überall sichtbar ist).
+   Freigestellt sind nur die Cards. */
+body.home-bg .page-section {
+  background: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 .content-grid {
@@ -479,6 +587,24 @@ a:hover {
   padding: 28px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.07);
   border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* Auf Home: Cards glasig + runder + Hover wie bei Services */
+body.home-bg .content-card {
+  background: rgba(255, 255, 255, 0.90);
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+body.home-bg .content-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
 }
 
 .content-card--full {
@@ -500,18 +626,59 @@ a:hover {
   background: var(--primary-color);
   color: var(--light-text-color);
   padding: 10px 16px;
-  border-radius: var(--border-radius);
+
+  /* etwas runder, passt besser zu den Karten */
+  border-radius: 10px;
+
   font-weight: 600;
   text-decoration: none;
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
 
 .cta-inline:hover {
   background: var(--accent-color);
   color: var(--light-text-color);
   text-decoration: none;
+
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.14);
 }
 
 @media (max-width: 768px) {
   .content-grid { grid-template-columns: 1fr; }
   .page-hero { padding: 38px 0; }
+}
+
+/* ===================================================================== */
+/* STARTSEITE: HEADER oben transparent, beim Scroll wieder weiß            */
+/* ===================================================================== */
+
+/* Smooth Transition */
+.site-header {
+  transition: background-color 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+/* NUR wenn die Startseite bodyClass "is-home" hat UND Header zusätzlich "is-top" bekommt */
+body.is-home .site-header.is-top {
+  background-color: transparent;
+  border-bottom-color: transparent;
+  box-shadow: none;
+}
+
+/* Text/Links oben hell, damit es auf dem Bild lesbar ist */
+body.is-home .site-header.is-top .brand,
+body.is-home .site-header.is-top .brand-title,
+body.is-home .site-header.is-top .brand-subtitle,
+body.is-home .site-header.is-top .main-navigation a,
+body.is-home .site-header.is-top .lang-link {
+  color: #ffffff;
+  text-shadow: 0 6px 14px rgba(0,0,0,0.35);
+}
+
+/* Burger-Linien oben weiß (falls mobil) */
+body.is-home .site-header.is-top .burger-lines,
+body.is-home .site-header.is-top .burger-lines::before,
+body.is-home .site-header.is-top .burger-lines::after {
+  background: #ffffff;
 }
