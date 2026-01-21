@@ -36,5 +36,24 @@ const bodyClasses = [bodyClass].join(" ").replace(/\s+/g, " ").trim();
     </main>
 
     <Footer />
+
+    <!-- NUR Startseite: Header oben transparent, beim Scroll wieder normal -->
+    <script>
+      (function () {
+        const isHome = document.body.classList.contains("home-bg");
+        if (!isHome) return;
+
+        const header = document.querySelector(".site-header");
+        if (!header) return;
+
+        const setTopState = () => {
+          if (window.scrollY <= 4) header.classList.add("is-top");
+          else header.classList.remove("is-top");
+        };
+
+        setTopState();
+        window.addEventListener("scroll", setTopState, { passive: true });
+      })();
+    </script>
   </body>
 </html>

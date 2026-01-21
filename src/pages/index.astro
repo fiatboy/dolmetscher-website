@@ -10,21 +10,12 @@ const pageDescription =
   "Zehra Yacine – Sprachmittlung Deutsch ↔ Türkisch in Augsburg. Begleit- & Gesprächsdolmetschen für Arztgespräche, Behörden, Beratungen und Alltag. Diskret, kultursensibel, verständlich.";
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} bodyClass="home-bg is-home">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  bodyClass="home-bg is-home"
+>
   <Hero />
   <ServicesSection />
   <ContactSection />
 </BaseLayout>
-
-<!-- Nur auf der Startseite: Header oben transparent, beim Scroll wieder weiß -->
-<script is:inline>
-  const header = document.querySelector(".site-header");
-
-  function updateHeader() {
-    if (!header) return;
-    header.classList.toggle("is-top", window.scrollY < 10);
-  }
-
-  updateHeader();
-  window.addEventListener("scroll", updateHeader, { passive: true });
-</script>

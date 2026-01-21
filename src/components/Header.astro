@@ -2,6 +2,9 @@
 const pathname = Astro.url?.pathname ?? "/";
 const isTR = pathname.startsWith("/tr");
 
+// Home-Erkennung (DE: "/" | TR: "/tr/" und "/tr")
+const isHome = pathname === "/" || pathname === "/tr/" || pathname === "/tr";
+
 // ---
 // Sprachwechsel-URLs berechnen (Standard: gleicher Pfad mit/ohne /tr)
 // ---
@@ -55,9 +58,15 @@ const brandSubtitleFull = isTR
 const brandSubtitleShort = isTR
   ? "Dil Aracılığı"
   : "Sprachmittlung";
+
+// Klassen für Header
+const headerClass = [
+  "site-header",
+  isHome ? "site-header--home site-header--transparent" : "",
+].join(" ").trim();
 ---
 
-<header class="site-header">
+<header class={headerClass}>
   <div class="container header-inner">
     <a href={brandHref} class="brand" aria-label={isTR ? "Ana sayfa" : "Startseite"}>
       <img
@@ -67,8 +76,6 @@ const brandSubtitleShort = isTR
       />
       <span class="brand-title">
         Zehra Yacine
-
-        <!-- Desktop: langer Untertitel | Mobile: kurzer Untertitel -->
         <span class="brand-subtitle brand-subtitle--full">{brandSubtitleFull}</span>
         <span class="brand-subtitle brand-subtitle--short">{brandSubtitleShort}</span>
       </span>
@@ -141,7 +148,6 @@ const brandSubtitleShort = isTR
         </a>
       </div>
 
-      <!-- Ohne JS: details/summary als Mobile-Menü -->
       <details class="mobile-menu">
         <summary class="burger" aria-label={isTR ? "Menüyü aç/kapat" : "Menü öffnen/schließen"}>
           <span class="burger-lines" aria-hidden="true"></span>
@@ -160,3 +166,34 @@ const brandSubtitleShort = isTR
     </div>
   </div>
 </header>
+
+<script is:inline>
+  (() => {
+    const header = document.querySelector(".site-header");
+    if (!header) return;
+
+    // Nur auf Home aktiv
+    if (!header.classList.contains("site-header--home")) return;
+
+    // Ab wann wird er "weiß"?
+    const THRESHOLD = 90;
+
+    const setState = () => {
+      const y = window.scrollY || 0;
+
+      if (y > THRESHOLD) {
+        // -> weiß
+        header.classList.remove("site-header--transparent");
+        header.classList.add("site-header--solid");
+      } else {
+        // -> transparent
+        header.classList.add("site-header--transparent");
+        header.classList.remove("site-header--solid");
+      }
+    };
+
+    setState();
+    window.addEventListener("scroll", setState, { passive: true });
+    window.addEventListener("resize", setState);
+  })();
+</script>
