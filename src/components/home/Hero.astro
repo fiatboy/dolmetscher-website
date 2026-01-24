@@ -1,0 +1,297 @@
+---
+// src/components/Hero.astro
+// Bildpfad: lege die Datei nach /public/images/hero-bg.jpg
+const heroImageUrl = "/../../public/hero-bg.jpg";
+---
+
+<section class="hero" aria-label="Hero">
+  <div
+    class="hero-bg"
+    aria-hidden="true"
+    style={`--hero-image: url('${heroImageUrl}')`}
+  ></div>
+
+  <div class="container">
+    <div class="content">
+      <p class="kicker">Sprachmittlung in Augsburg</p>
+
+      <h1>Sprachmittlung Deutsch ↔ Türkisch in Augsburg</h1>
+
+      <p class="lead">
+        Verständliche, zuverlässige und kultursensible Sprachmittlung für
+        <strong>Sozialdienste, Jugendhilfe, Behörden, Beratungsstellen, Krisenhilfe, Gesundheit und Alltag</strong>
+        – persönlich vor Ort in Augsburg und Umgebung.
+      </p>
+
+      <div class="actions">
+        <a href="/kontakt" class="cta-button">
+          <span>Kontakt aufnehmen</span>
+          <span class="cta-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" focusable="false">
+              <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+
+        <a href="#leistungen" class="ghost-button">
+          Leistungen ansehen
+        </a>
+      </div>
+
+      <div class="trust-row" aria-label="Vorteile">
+        <div class="trust-pill"><span class="dot" aria-hidden="true"></span>Diskret & zuverlässig</div>
+        <div class="trust-pill"><span class="dot" aria-hidden="true"></span>Vor Ort in Augsburg</div>
+        <div class="trust-pill"><span class="dot" aria-hidden="true"></span>Kultursensibel & präzise</div>
+      </div>
+    </div>
+  </div>
+
+  {/* Perfekter Übergang in den Seiten-Background */}
+  <div class="hero-divider" aria-hidden="true">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path
+        d="M0,64 C240,120 480,120 720,78 C960,36 1200,12 1440,52 L1440,120 L0,120 Z"
+        fill="var(--page-bg)"
+      />
+    </svg>
+  </div>
+</section>
+
+<style>
+  :global(:root) {
+    /* WICHTIG: das ist der Background deiner Seite/Section (Screenshot wirkt wie #e6e6e6) */
+    --page-bg: #e6e6e6;
+
+    /* Brand-Akzent */
+    --accent: #c58a2b;
+
+    /* Hero Typo */
+    --hero-ink: rgba(255, 255, 255, 0.94);
+    --hero-ink-muted: rgba(255, 255, 255, 0.82);
+
+    --shadow: rgba(15, 23, 42, 0.26);
+  }
+
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: clamp(56px, 7vw, 92px) 0 92px; /* unten extra Platz für Divider */
+    color: var(--hero-ink);
+    background: #d99b3a; /* fallback falls Bild nicht lädt */
+  }
+
+  /* Background Image + Overlays */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    /* Bild */
+    background-image: var(--hero-image);
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.02);
+  }
+
+  /* Overlay Layering für Tiefe + Lesbarkeit */
+  .hero-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    /* warme Brand-Tönung + Vignette */
+    background:
+      radial-gradient(900px 500px at 50% 15%, rgba(255,255,255,0.18), rgba(255,255,255,0) 60%),
+      radial-gradient(900px 700px at 50% 120%, rgba(15,23,42,0.22), rgba(15,23,42,0) 60%),
+      linear-gradient(180deg, rgba(205, 140, 35, 0.78), rgba(205, 140, 35, 0.58));
+  }
+
+  /* Unten zusätzlich ein Scrim, damit der Übergang niemals “milchig-abgeschnitten” wirkt */
+  .hero-bg::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 160px;
+
+    /* Erst dunkler für Kontrast, dann in page-bg */
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0) 0%,
+      rgba(0,0,0,0.12) 35%,
+      color-mix(in srgb, var(--page-bg) 70%, transparent) 75%,
+      var(--page-bg) 100%
+    );
+  }
+
+  .container {
+    width: min(1120px, 92vw);
+    margin: 0 auto;
+  }
+
+  .content {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .kicker {
+    margin: 0 0 14px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: rgba(255,255,255,0.86);
+  }
+
+  h1 {
+    margin: 0 0 14px;
+    font-size: clamp(30px, 4vw, 46px);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    text-shadow:
+      0 12px 32px rgba(15,23,42,0.35),
+      0 2px 10px rgba(15,23,42,0.22);
+  }
+
+  .lead {
+    margin: 0 auto;
+    max-width: 780px;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--hero-ink-muted);
+  }
+
+  .lead strong {
+    color: rgba(255,255,255,0.96);
+    font-weight: 750;
+  }
+
+  .actions {
+    margin-top: 22px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 18px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 800;
+
+    color: rgba(15,23,42,0.92);
+    background: rgba(255,255,255,0.92);
+    border: 1px solid rgba(255,255,255,0.60);
+
+    box-shadow:
+      0 18px 42px var(--shadow),
+      0 6px 16px rgba(15,23,42,0.18);
+
+    transition: transform 220ms cubic-bezier(.16, 1, .3, 1), box-shadow 220ms cubic-bezier(.16, 1, .3, 1);
+  }
+
+  .cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      0 24px 54px rgba(15,23,42,0.30),
+      0 10px 22px rgba(15,23,42,0.22);
+  }
+
+  .cta-icon {
+    width: 18px;
+    height: 18px;
+    display: inline-grid;
+    place-items: center;
+    flex: 0 0 18px;
+    opacity: 0.9;
+    transform: translateX(0);
+    transition: transform 220ms cubic-bezier(.16, 1, .3, 1);
+  }
+  .cta-icon > svg {
+    width: 18px !important;
+    height: 18px !important;
+    display: block;
+    max-width: 18px;
+    max-height: 18px;
+  }
+  .cta-button:hover .cta-icon { transform: translateX(2px); }
+
+  .ghost-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 750;
+
+    color: rgba(255,255,255,0.92);
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.22);
+
+    box-shadow: 0 14px 30px rgba(15,23,42,0.16);
+    transition: transform 220ms cubic-bezier(.16, 1, .3, 1), background-color 220ms ease;
+  }
+
+  .ghost-button:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.18);
+  }
+
+  .trust-row {
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .trust-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.20);
+    color: rgba(255,255,255,0.88);
+    font-size: 13px;
+    box-shadow: 0 12px 24px rgba(15,23,42,0.14);
+  }
+
+  .trust-pill .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.95);
+    opacity: 0.9;
+  }
+
+  /* Curve Divider sitzt am unteren Rand und “klebt” an page-bg */
+  .hero-divider {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 120px;
+    pointer-events: none;
+  }
+
+  .hero-divider svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cta-button,
+    .ghost-button,
+    .cta-icon {
+      transition: none;
+    }
+  }
+</style>

@@ -1,0 +1,299 @@
+---
+// src/components/ServiceCard.astro
+export interface Props {
+  title: string;
+  text: string;
+
+  badge?: string;    // z.B. "Beliebt", "Schnell verfügbar", "Empfohlen"
+  ctaLabel?: string; // z.B. "Termin anfragen"
+  ctaHref?: string;  // z.B. "#kontakt"
+}
+
+const {
+  title,
+  text,
+  badge = "Beliebt",
+  ctaLabel = "Mehr erfahren",
+  ctaHref = "#kontakt",
+} = Astro.props;
+---
+
+<article class="service-card">
+  <header class="card-top">
+    <div class="card-icon" aria-hidden="true">
+      <slot name="icon" />
+    </div>
+
+    <div class="card-meta">
+      <div class="badge" aria-label={badge}>
+        <span class="dot" aria-hidden="true"></span>
+        <span class="badge-text">{badge}</span>
+      </div>
+    </div>
+  </header>
+
+  <h3 class="card-title">{title}</h3>
+  <p class="card-text">{text}</p>
+
+  <footer class="card-footer">
+    <a class="cta" href={ctaHref} aria-label={`${ctaLabel}: ${title}`}>
+      <span class="cta-label">{ctaLabel}</span>
+
+      {/* Kapsel: schützt vor globalen svg-regeln */}
+      <span class="cta-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" focusable="false">
+          <path
+            d="M5 12h12"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <path
+            d="M13 6l6 6-6 6"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </span>
+    </a>
+  </footer>
+</article>
+
+<style>
+  :global(:root) {
+    --card-bg: rgba(255, 255, 255, 0.78);
+    --card-border: rgba(15, 23, 42, 0.10);
+    --text-strong: rgba(15, 23, 42, 0.92);
+    --text-muted: rgba(15, 23, 42, 0.68);
+
+    /* Accent (dein Gold/Orange) */
+    --accent: #c58a2b;
+    --accent-2: #f2c36b;
+  }
+
+  .service-card {
+    position: relative;
+    border-radius: 24px; /* rounded-3xl vibe */
+    padding: 26px 24px 22px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    /* mehr Tiefe, aber subtil */
+    box-shadow:
+      0 10px 22px rgba(15, 23, 42, 0.08),
+      0 2px 8px rgba(15, 23, 42, 0.06);
+
+    transition:
+      transform 220ms cubic-bezier(.16, 1, .3, 1),
+      box-shadow 220ms cubic-bezier(.16, 1, .3, 1),
+      border-color 220ms ease;
+  }
+
+  /* gradient line (sehr fein, nicht overkill) */
+  .service-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(197, 138, 43, 0.55),
+      rgba(242, 195, 107, 0.18),
+      rgba(255, 255, 255, 0)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+
+  .service-card:hover {
+    transform: translateY(-6px); /* lift */
+    border-color: rgba(197, 138, 43, 0.22);
+    box-shadow:
+      0 18px 40px rgba(15, 23, 42, 0.12),
+      0 6px 18px rgba(15, 23, 42, 0.08);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .card-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+
+    background: radial-gradient(circle at 30% 30%,
+      rgba(242, 195, 107, 0.26),
+      rgba(197, 138, 43, 0.10) 55%,
+      rgba(15, 23, 42, 0.04) 100%
+    );
+    border: 1px solid rgba(197, 138, 43, 0.18);
+    color: var(--accent);
+
+    box-shadow:
+      0 10px 18px rgba(197, 138, 43, 0.10),
+      0 2px 8px rgba(15, 23, 42, 0.05);
+  }
+
+  /* Icon-Size FIX (auch gegen globale svg-regeln) */
+  .card-icon :global(svg) {
+    width: 30px !important;
+    height: 30px !important;
+    display: block;
+    max-width: 30px;
+    max-height: 30px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.04);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    color: rgba(15, 23, 42, 0.78);
+    font-size: 13px;
+    line-height: 1;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--accent);
+    position: relative;
+    flex: 0 0 8px;
+  }
+
+  .dot::after {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 999px;
+    background: radial-gradient(circle,
+      rgba(197, 138, 43, 0.35),
+      rgba(197, 138, 43, 0) 60%
+    );
+    animation: pulse 1.6s ease-out infinite;
+  }
+
+  @keyframes pulse {
+    0%   { transform: scale(0.55); opacity: 0.9; }
+    70%  { transform: scale(1.15); opacity: 0.25; }
+    100% { transform: scale(1.25); opacity: 0; }
+  }
+
+  .card-title {
+    margin: 0 0 10px;
+    color: var(--text-strong);
+    font-weight: 750;
+    letter-spacing: -0.01em;
+    font-size: 18px;
+  }
+
+  .card-text {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .card-footer {
+    margin-top: 18px;
+  }
+
+  /* CTA als Button-Style */
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    text-decoration: none;
+
+    color: rgba(15, 23, 42, 0.90);
+    background: rgba(255, 255, 255, 0.80);
+    border: 1px solid rgba(15, 23, 42, 0.10);
+
+    box-shadow:
+      0 10px 22px rgba(15, 23, 42, 0.10),
+      0 2px 8px rgba(15, 23, 42, 0.06);
+
+    transition:
+      transform 220ms cubic-bezier(.16, 1, .3, 1),
+      box-shadow 220ms cubic-bezier(.16, 1, .3, 1),
+      border-color 220ms ease;
+  }
+
+  .cta:hover {
+    transform: translateY(-3px);
+    border-color: rgba(197, 138, 43, 0.22);
+    box-shadow:
+      0 16px 34px rgba(15, 23, 42, 0.14),
+      0 5px 14px rgba(15, 23, 42, 0.10);
+  }
+
+  .cta:focus-visible {
+    outline: 3px solid rgba(197, 138, 43, 0.35);
+    outline-offset: 3px;
+  }
+
+  .cta-label {
+    font-weight: 650;
+    font-size: 14px;
+  }
+
+  /* ABSOLUTER FIX gegen überdimensionierte SVGs */
+  .cta-icon {
+    width: 18px;
+    height: 18px;
+    display: inline-grid;
+    place-items: center;
+    flex: 0 0 18px;
+    opacity: 0.9;
+    transform: translateX(0);
+    transition: transform 220ms cubic-bezier(.16, 1, .3, 1);
+  }
+
+  .cta-icon > svg {
+    width: 18px !important;
+    height: 18px !important;
+    display: block;
+    max-width: 18px;
+    max-height: 18px;
+  }
+
+  .cta:hover .cta-icon {
+    transform: translateX(2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-card,
+    .cta,
+    .cta-icon {
+      transition: none;
+    }
+    .dot::after {
+      animation: none;
+    }
+  }
+</style>
