@@ -1,31 +1,97 @@
 ---
 // src/components/Footer.astro
-// Fix: Impressum/Datenschutz bleiben NUR auf Deutsch.
-// Deshalb immer auf /impressum und /datenschutz verlinken (auch wenn /tr aktiv ist),
-// damit es in der türkischen Version kein 404 gibt.
+// Impressum/Datenschutz gibt es nur auf Deutsch -> Links bleiben immer /impressum & /datenschutz
 
 const currentYear = new Date().getFullYear();
 
-// Sprache anhand URL erkennen
 const pathname = Astro.url?.pathname ?? "/";
 const isTR = pathname.startsWith("/tr");
 
-// Texte je nach Sprache (Links bleiben DE)
 const labelImpressum = isTR ? "Impressum (DE)" : "Impressum";
 const labelDatenschutz = isTR ? "Datenschutz (DE)" : "Datenschutz";
 
-// Optionaler kurzer Footer-Text je nach Sprache
 const footerText = isTR
   ? `© ${currentYear} Zehra Yacine · Almanca ↔ Türkçe Dil Aracılığı`
   : `© ${currentYear} Zehra Yacine · Sprachmittlung Deutsch ↔ Türkisch`;
 ---
 
-<footer class="site-footer">
-  <div class="container">
-    <p>
-      {footerText} |
-      <a href="/impressum">{labelImpressum}</a> |
-      <a href="/datenschutz">{labelDatenschutz}</a>
-    </p>
+<footer class="site-footer" role="contentinfo">
+  <div class="container footer-inner">
+    <p class="footer-copy">{footerText}</p>
+
+    <nav class="footer-nav" aria-label={isTR ? "Yasal bağlantılar" : "Rechtliche Links"}>
+      <a class="footer-link" href="/impressum">{labelImpressum}</a>
+      <span class="sep" aria-hidden="true">•</span>
+      <a class="footer-link" href="/datenschutz">{labelDatenschutz}</a>
+    </nav>
   </div>
 </footer>
+
+<style>
+  .site-footer {
+    padding: 22px 0;
+    border-top: 1px solid rgba(15, 23, 42, 0.08);
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .container {
+    width: min(1120px, 92vw);
+    margin: 0 auto;
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .footer-copy {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(15, 23, 42, 0.62);
+  }
+
+  .footer-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .sep {
+    color: rgba(15, 23, 42, 0.35);
+    font-size: 12px;
+  }
+
+  .footer-link {
+    font-size: 13px;
+    font-weight: 650;
+    color: rgba(15, 23, 42, 0.72);
+    text-decoration: none;
+    padding: 8px 10px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+  }
+
+  .footer-link:hover {
+    background: rgba(15, 23, 42, 0.04);
+    border-color: rgba(15, 23, 42, 0.08);
+    color: rgba(15, 23, 42, 0.88);
+  }
+
+  .footer-link:focus-visible {
+    outline: 3px solid rgba(197, 138, 43, 0.35);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer-link {
+      transition: none;
+    }
+  }
+</style>

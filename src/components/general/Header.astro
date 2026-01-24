@@ -2,22 +2,16 @@
 const pathname = Astro.url?.pathname ?? "/";
 const isTR = pathname.startsWith("/tr");
 
-// ---
-// Sprachwechsel-URLs berechnen (Standard: gleicher Pfad mit/ohne /tr)
-// ---
+// Sprachwechsel-URLs (gleicher Pfad mit/ohne /tr)
 const dePath = isTR ? pathname.replace(/^\/tr(?=\/|$)/, "") || "/" : pathname;
 const trPath = isTR ? pathname : `/tr${pathname === "/" ? "" : pathname}`;
 
 let deHref = dePath;
 let trHref = trPath;
 
-// ---
-// Sonderfall: Impressum/Datenschutz gibt es nur auf Deutsch.
-// ---
+// Sonderfall: Legal nur DE
 const legalDE = new Set(["/impressum", "/datenschutz"]);
-if (!isTR && legalDE.has(dePath)) {
-  trHref = "/tr/";
-}
+if (!isTR && legalDE.has(dePath)) trHref = "/tr/";
 
 const legalTR = new Set(["/tr/impressum", "/tr/datenschutz"]);
 if (isTR && legalTR.has(pathname)) {
@@ -25,9 +19,7 @@ if (isTR && legalTR.has(pathname)) {
   trHref = "/tr/";
 }
 
-// ---
-// Navigation: Labels + Links (DE/TR Seiten)
-// ---
+// Nav-Items
 const navItemsDE = [
   { href: "/", label: "Start" },
   { href: "/leistungen", label: "Leistungen" },
@@ -44,17 +36,15 @@ const navItemsTR = [
 
 const navItems = isTR ? navItemsTR : navItemsDE;
 
-// Brand-Link je nach Sprache
+// Brand
 const brandHref = isTR ? "/tr/" : "/";
+const brandSubtitleFull = isTR ? "Almanca ↔ Türkçe Dil Aracılığı" : "Sprachmittlung Deutsch ↔ Türkisch";
+const brandSubtitleShort = isTR ? "Dil Aracılığı" : "Sprachmittlung";
 
-// Brand-Subtitle je nach Sprache (full + short für mobile)
-const brandSubtitleFull = isTR
-  ? "Almanca ↔ Türkçe Dil Aracılığı"
-  : "Sprachmittlung Deutsch ↔ Türkisch";
-
-const brandSubtitleShort = isTR
-  ? "Dil Aracılığı"
-  : "Sprachmittlung";
+// Active Link Helper (nimmt /tr/ sauber mit)
+const normalize = (p: string) => (p.endsWith("/") && p !== "/" ? p.slice(0, -1) : p);
+const current = normalize(pathname);
+const isActive = (href: string) => normalize(href) === current;
 ---
 
 <header class="site-header">
@@ -64,23 +54,29 @@ const brandSubtitleShort = isTR
         src="/logo.png"
         alt="Zehra Yacine – Sprachmittlung Deutsch ↔ Türkisch"
         class="logo-image"
+        loading="eager"
+        decoding="async"
       />
       <span class="brand-title">
         Zehra Yacine
-
-        <!-- Desktop: langer Untertitel | Mobile: kurzer Untertitel -->
         <span class="brand-subtitle brand-subtitle--full">{brandSubtitleFull}</span>
         <span class="brand-subtitle brand-subtitle--short">{brandSubtitleShort}</span>
       </span>
     </a>
 
-    <!-- Desktop: Navigation + Sprache ganz rechts -->
-    <div class="nav-right nav-right--desktop">
+    {/* Desktop Row: Nav + Language */}
+    <div class="right desktop">
       <nav class="main-navigation" aria-label={isTR ? "Ana navigasyon" : "Hauptnavigation"}>
         <ul class="nav-links">
           {navItems.map((item) => (
             <li>
-              <a href={item.href}>{item.label}</a>
+              <a
+                href={item.href}
+                class:list={["nav-link", isActive(item.href) && "is-active"]}
+                aria-current={isActive(item.href) ? "page" : undefined}
+              >
+                {item.label}
+              </a>
             </li>
           ))}
         </ul>
@@ -88,60 +84,63 @@ const brandSubtitleShort = isTR
 
       <div class="lang-links" aria-label={isTR ? "Dil seçimi" : "Sprache wählen"}>
         <a
-          class={`lang-link ${!isTR ? "is-active" : "is-inactive"}`}
           href={deHref}
           lang="de"
           hreflang="de"
-          aria-current={!isTR ? "page" : undefined}
           aria-label="Deutsch"
+          aria-current={!isTR ? "page" : undefined}
+          class:list={["lang-link", !isTR ? "is-active" : "is-inactive"]}
         >
-          <span aria-hidden="true">🇩🇪</span> <span class="code">DE</span>
+          <span class="flag" aria-hidden="true">🇩🇪</span>
+          <span class="code">DE</span>
         </a>
 
-        <span class="lang-sep" aria-hidden="true">|</span>
+        <span class="lang-sep" aria-hidden="true">•</span>
 
         <a
-          class={`lang-link ${isTR ? "is-active" : "is-inactive"}`}
           href={trHref}
           lang="tr"
           hreflang="tr"
-          aria-current={isTR ? "page" : undefined}
           aria-label="Türkçe"
+          aria-current={isTR ? "page" : undefined}
+          class:list={["lang-link", isTR ? "is-active" : "is-inactive"]}
         >
-          <span aria-hidden="true">🇹🇷</span> <span class="code">TR</span>
+          <span class="flag" aria-hidden="true">🇹🇷</span>
+          <span class="code">TR</span>
         </a>
       </div>
     </div>
 
-    <!-- Mobile: Sprache rechts + Burger -->
-    <div class="nav-right nav-right--mobile" aria-label={isTR ? "Menü ve dil" : "Menü und Sprache"}>
+    {/* Mobile Row: Language + Menu */}
+    <div class="right mobile" aria-label={isTR ? "Menü ve dil" : "Menü und Sprache"}>
       <div class="lang-links" aria-label={isTR ? "Dil seçimi" : "Sprache wählen"}>
         <a
-          class={`lang-link ${!isTR ? "is-active" : "is-inactive"}`}
           href={deHref}
           lang="de"
           hreflang="de"
-          aria-current={!isTR ? "page" : undefined}
           aria-label="Deutsch"
+          aria-current={!isTR ? "page" : undefined}
+          class:list={["lang-link", !isTR ? "is-active" : "is-inactive"]}
         >
-          <span aria-hidden="true">🇩🇪</span> <span class="code">DE</span>
+          <span class="flag" aria-hidden="true">🇩🇪</span>
+          <span class="code">DE</span>
         </a>
 
-        <span class="lang-sep" aria-hidden="true">|</span>
+        <span class="lang-sep" aria-hidden="true">•</span>
 
         <a
-          class={`lang-link ${isTR ? "is-active" : "is-inactive"}`}
           href={trHref}
           lang="tr"
           hreflang="tr"
-          aria-current={isTR ? "page" : undefined}
           aria-label="Türkçe"
+          aria-current={isTR ? "page" : undefined}
+          class:list={["lang-link", isTR ? "is-active" : "is-inactive"]}
         >
-          <span aria-hidden="true">🇹🇷</span> <span class="code">TR</span>
+          <span class="flag" aria-hidden="true">🇹🇷</span>
+          <span class="code">TR</span>
         </a>
       </div>
 
-      <!-- Ohne JS: details/summary als Mobile-Menü -->
       <details class="mobile-menu">
         <summary class="burger" aria-label={isTR ? "Menüyü aç/kapat" : "Menü öffnen/schließen"}>
           <span class="burger-lines" aria-hidden="true"></span>
@@ -151,7 +150,13 @@ const brandSubtitleShort = isTR
           <ul class="mobile-links">
             {navItems.map((item) => (
               <li>
-                <a href={item.href}>{item.label}</a>
+                <a
+                  href={item.href}
+                  class:list={["mobile-link", isActive(item.href) && "is-active"]}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                >
+                  {item.label}
+                </a>
               </li>
             ))}
           </ul>
@@ -160,3 +165,276 @@ const brandSubtitleShort = isTR
     </div>
   </div>
 </header>
+
+<style>
+  /* Layout / Performance */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    contain: layout paint style; /* scroll perf */
+    content-visibility: auto;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  }
+
+  .container {
+    width: min(1120px, 92vw);
+    margin: 0 auto;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 12px 0;
+  }
+
+  /* Brand */
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: rgba(15, 23, 42, 0.92);
+    min-width: 0;
+  }
+
+  .logo-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    box-shadow:
+      0 10px 20px rgba(15, 23, 42, 0.10),
+      0 2px 8px rgba(15, 23, 42, 0.06);
+  }
+
+  .brand-title {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+
+  .brand-subtitle {
+    font-weight: 600;
+    letter-spacing: 0;
+    color: rgba(15, 23, 42, 0.62);
+    font-size: 12px;
+  }
+
+  .brand-subtitle--short { display: none; }
+
+  /* Right blocks */
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .desktop { display: none; }
+  .mobile { display: flex; }
+
+  /* Nav */
+  .nav-links {
+    display: flex;
+    gap: 6px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 650;
+    font-size: 14px;
+    color: rgba(15, 23, 42, 0.78);
+    border: 1px solid transparent;
+    transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+  }
+
+  .nav-link:hover {
+    background: rgba(15, 23, 42, 0.04);
+    border-color: rgba(15, 23, 42, 0.08);
+    transform: translateY(-1px);
+  }
+
+  .nav-link.is-active {
+    background: rgba(197, 138, 43, 0.12);
+    border-color: rgba(197, 138, 43, 0.22);
+    color: rgba(15, 23, 42, 0.90);
+  }
+
+  /* Language Switch */
+  .lang-links {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(15, 23, 42, 0.10);
+    background: rgba(255, 255, 255, 0.70);
+    box-shadow:
+      0 10px 20px rgba(15, 23, 42, 0.10),
+      0 2px 8px rgba(15, 23, 42, 0.06);
+  }
+
+  .lang-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-weight: 750;
+    font-size: 13px;
+    color: rgba(15, 23, 42, 0.78);
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+  }
+
+  .lang-link:hover {
+    transform: translateY(-1px);
+    background: rgba(15, 23, 42, 0.04);
+    border-color: rgba(15, 23, 42, 0.08);
+  }
+
+  .lang-link.is-active {
+    background: rgba(197, 138, 43, 0.14);
+    border-color: rgba(197, 138, 43, 0.24);
+    color: rgba(15, 23, 42, 0.92);
+  }
+
+  .lang-sep {
+    color: rgba(15, 23, 42, 0.35);
+    font-size: 12px;
+  }
+
+  .flag { font-size: 14px; line-height: 1; }
+  .code { letter-spacing: 0.04em; }
+
+  /* Mobile menu (details/summary) */
+  .mobile-menu {
+    position: relative;
+  }
+
+  summary { list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+
+  .burger {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    border: 1px solid rgba(15, 23, 42, 0.10);
+    background: rgba(255, 255, 255, 0.70);
+    box-shadow:
+      0 10px 20px rgba(15, 23, 42, 0.10),
+      0 2px 8px rgba(15, 23, 42, 0.06);
+    cursor: pointer;
+  }
+
+  .burger-lines {
+    width: 18px;
+    height: 2px;
+    background: rgba(15, 23, 42, 0.72);
+    border-radius: 999px;
+    position: relative;
+  }
+
+  .burger-lines::before,
+  .burger-lines::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 18px;
+    height: 2px;
+    background: rgba(15, 23, 42, 0.72);
+    border-radius: 999px;
+  }
+
+  .burger-lines::before { top: -6px; }
+  .burger-lines::after  { top:  6px; }
+
+  .mobile-nav {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    width: min(320px, 88vw);
+    border-radius: 18px;
+    padding: 10px;
+    border: 1px solid rgba(15, 23, 42, 0.10);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow:
+      0 20px 46px rgba(15, 23, 42, 0.18),
+      0 8px 18px rgba(15, 23, 42, 0.12);
+  }
+
+  .mobile-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 6px;
+  }
+
+  .mobile-link {
+    display: flex;
+    padding: 12px 12px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 700;
+    color: rgba(15, 23, 42, 0.86);
+    border: 1px solid transparent;
+    background: rgba(15, 23, 42, 0.02);
+    transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease;
+  }
+
+  .mobile-link:hover {
+    transform: translateY(-1px);
+    background: rgba(15, 23, 42, 0.04);
+    border-color: rgba(15, 23, 42, 0.08);
+  }
+
+  .mobile-link.is-active {
+    background: rgba(197, 138, 43, 0.14);
+    border-color: rgba(197, 138, 43, 0.24);
+  }
+
+  /* Responsive */
+  @media (min-width: 920px) {
+    .desktop { display: flex; }
+    .mobile { display: none; }
+  }
+
+  @media (max-width: 520px) {
+    .brand-subtitle--full { display: none; }
+    .brand-subtitle--short { display: inline; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-link,
+    .lang-link,
+    .mobile-link {
+      transition: none;
+    }
+    .nav-link:hover,
+    .lang-link:hover,
+    .mobile-link:hover {
+      transform: none;
+    }
+  }
+</style>
